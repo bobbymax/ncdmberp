@@ -1,73 +1,94 @@
-@extends('layouts.app')
-
+@extends('layouts.blank')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+<!-- Login Background Section -->
+<div class="dt-login__bg-section" style="background-image: url({{ asset('images/bg.jpg') }});">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+    <div class="dt-login__bg-content">
+        <!-- Login Title -->
+        <h1 class="dt-login__title">{{ __('Login') }}</h1>
+        <!-- /login title -->
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+        <p class="f-16">Sign in here</p>
     </div>
+
+
+    <!-- Brand logo -->
+    <div class="dt-login__logo">
+        <a class="dt-brand__logo-link" href="{{ url('/') }}">
+            <img class="dt-brand__logo-img" src="{{ asset('images/logo.jpg') }}" alt="Drift">
+        </a>
+    </div>
+    <!-- /brand logo -->
+
 </div>
-@endsection
+<!-- /login background section -->
+
+<!-- Login Content Section -->
+<div class="dt-login__content">
+
+    <!-- Login Content Inner -->
+    <div class="dt-login__content-inner">
+
+        <!-- Form -->
+        <form action="{{ route('login') }}" method="POST">
+        	@csrf
+
+            <!-- Form Group -->
+            <div class="form-group">
+                <label class="sr-only" for="staff_no-1">{{ __('Staff Number') }}</label>
+                <input type="text" class="form-control @error('staff_no') is-invalid @enderror" id="staff_no-1" name="staff_no" aria-describedby="staff_no-1" placeholder="Enter Staff Number" value="{{ old('staff_no') }}">
+
+                @error('staff_no')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <!-- /form group -->
+
+            <!-- Form Group -->
+            <div class="form-group">
+                <label class="sr-only" for="password-1">{{ __('Password') }}</label>
+                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password-1" placeholder="Password">
+
+                @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <!-- /form group -->
+
+            <!-- Form Group -->
+            <div class="dt-checkbox d-block mb-6">
+                <input type="checkbox" name="remember" id="checkbox-1" {{ old('remember') ? 'checked' : '' }}>
+                <label class="dt-checkbox-content" for="checkbox-1">
+                    {{ __('Keep me login on this device') }}
+                </label>
+            </div>
+            <!-- /form group -->
+
+            <!-- Form Group -->
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary text-uppercase">{{ __('Login') }}</button>
+            </div>
+            <!-- /form group -->
+
+
+        </form>
+        <!-- /form -->
+
+    </div>
+    <!-- /login content inner -->
+
+    <!-- Login Content Footer -->
+    @if (Route::has('password.request'))
+		<div class="dt-login__content-footer">
+        	<a href="{{ route('password.request') }}">Can’t access your account?</a>
+    	</div>
+    @endif
+    <!-- /login content footer -->
+
+</div>
+<!-- /login content section -->
+@stop
