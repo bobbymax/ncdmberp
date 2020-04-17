@@ -33,6 +33,7 @@ class AdminController extends Controller
     {
         // 1. Change Training Detail Status to Scheduled
         $detail->status = "scheduled";
+        $detail->action = "approved";
         if ($detail->save()) {
             foreach ($detail->nominations as $nomination) {
                 // 2. Update the nomination status

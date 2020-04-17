@@ -77,7 +77,12 @@ class NominationController extends Controller
      */
     public function index()
     {
-        //
+        $scheduled = TrainingDetail::with('nominations')
+                                    ->where('status', 'scheduled')
+                                    ->where('action', 'approved')
+                                    ->latest()
+                                    ->get();
+        return view('modules.nominations.index', compact('scheduled'));
     }
 
     public function nominations()

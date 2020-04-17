@@ -41,18 +41,20 @@
 	                            <i class="icon icon-info icon-lg"></i> 
 	                        </a>
 
-	                        <!-- Dropdown -->
-	                        <div class="dropdown d-inline-block">
-	                            <a class="dropdown-toggle no-arrow text-light-gray" href="#"
-	                               data-toggle="dropdown"
-	                               aria-haspopup="true" aria-expanded="false"> <i
-	                                    class="icon icon-chevrolet-down icon-lg"></i> </a>
+	                        @if ($detail->status !== "scheduled")
+	                        	<!-- Dropdown -->
+		                        <div class="dropdown d-inline-block">
+		                            <a class="dropdown-toggle no-arrow text-light-gray" href="#"
+		                               data-toggle="dropdown"
+		                               aria-haspopup="true" aria-expanded="false"> <i
+		                                    class="icon icon-chevrolet-down icon-lg"></i> </a>
 
-	                            <div class="dropdown-menu dropdown-menu-right">
-	                                <a class="dropdown-item" href="{{ route('details.edit', [$training->label, $detail->id]) }}">Edit</a>
-	                            </div>
-	                        </div>
-	                        <!-- /dropdown -->
+		                            <div class="dropdown-menu dropdown-menu-right">
+		                                <a class="dropdown-item" href="{{ route('details.edit', [$training->label, $detail->id]) }}">Edit</a>
+		                            </div>
+		                        </div>
+		                        <!-- /dropdown -->
+	                        @endif
 	                    </div>
 	                    <!-- /card tools -->
 
@@ -105,7 +107,11 @@
 
 	                <!-- Button -->
 	                <a href="{{ !in_array(auth()->user()->id, $detail->attendees()) ? route('add.attendee', $detail->id) : 'javascript:void(0)' }}" class="btn btn-success btn-sm btn-block rounded-0" disabled>
-	                	{{ ! in_array(auth()->user()->id, $detail->attendees()) ? 'Add me to Class' : 'Already Attended' }}
+	                	@if (! in_array(auth()->user()->id, $detail->attendees()))
+	                		Add me to Class
+	                	@else
+	                		{{ $detail->completed === 1 ? 'Already Attended' : 'Yet to Complete' }}
+	                	@endif
 	            	</a>
 	                <!-- /button -->
 
