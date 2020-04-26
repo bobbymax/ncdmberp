@@ -70,7 +70,7 @@ class TrainingDetailController extends Controller
         }
 
 
-        return redirect()->route('trainings.show', $training->label)->with('status', $this->message);
+        return redirect()->route('trainings.index')->with('status', $this->message);
     }
 
     /**

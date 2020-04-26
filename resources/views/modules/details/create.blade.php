@@ -172,7 +172,7 @@
 				<div class="col-12">
 					<div class="btn-group" role="group" aria-label="Basic example">
                         <a href="{{ route('trainings.show', $training->label) }}" class="btn btn-sm btn-danger"><i class="icon icon-settings icon-lg"></i> Cancel</a>
-                        <button type="submit" class="btn btn-sm btn-success"><i class="icon icon-send icon-lg"></i> Add Details</button>
+                        <button type="submit" class="btn btn-sm btn-success"><i class="icon icon-send icon-lg"></i> Save Details</button>
                     </div>
 				</div>
 			</div>

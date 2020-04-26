@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Traits\HasFunction;
 use App\Training;
 use App\TrainingDetail;
+use App\Notifications\TrainingCategorised;
 use App\User;
 use App\Staff;
 
@@ -62,7 +63,15 @@ class AdminController extends Controller
     public function confirmCategory(TrainingDetail $training)
     {
     	$training->categorised = 1;
-    	$training->save();
+    	if ($training->save()) {
+
+            foreach ($training->staffs as $staff) {
+                $staff->notify(new TrainingCategorised($training));
+            }
+
+        }
+
+
 
     	return back()->with('status', 'Training category has been confirmed and archived successfully.');
     }

@@ -120,7 +120,7 @@
                             <!-- Dropdown Link -->
                             <a href="#" class="dt-nav__link dropdown-toggle no-arrow" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false"> <i
-                                    class="icon icon-notification2 icon-fw dt-icon-alert"></i>
+                                    class="icon icon-notification2 icon-fw {{ auth()->user()->unreadNotifications->count() > 0 ? 'dt-icon-alert' : '' }}"></i>
                             </a>
                             <!-- /dropdown link -->
 
@@ -128,7 +128,7 @@
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-media">
                                 <!-- Dropdown Menu Header -->
                                 <div class="dropdown-menu-header">
-                                    <h4 class="title">Notifications (9)</h4>
+                                    <h4 class="title">Notifications ({{ auth()->user()->unreadNotifications->count() }})</h4>
 
                                     <div class="ml-auto action-area">
                                         <a href="javascript:void(0)">Mark All Read</a> <a class="ml-2"
@@ -142,93 +142,26 @@
                                 <div class="dropdown-menu-body ps-custom-scrollbar">
 
                                     <div class="h-auto">
-                                        <!-- Media -->
-                                        <a href="javascript:void(0)" class="media">
 
-                                            <!-- Avatar -->
-                                            <img class="dt-avatar mr-3" src="https://via.placeholder.com/150x150"
-                                                 alt="User">
-                                            <!-- avatar -->
+                                        @foreach (auth()->user()->unreadNotifications as $notification)
+                                            <!-- Media -->
+                                            <a href="javascript:void(0)" class="media">
 
-                                            <!-- Media Body -->
-                                            <span class="media-body">
-                                                <span class="message">
-                                                <span class="user-name">Stella Johnson</span> and <span class="user-name">Chris Harris</span>
-                                                have birthdays today. Help them celebrate!
+                                                <!-- Media Body -->
+                                                <span class="">
+                                                    <span class="badge badge-success mb-2 mr-1">{{ $notification->data['type'] }}</span>
+                                                    <span class="badge badge-primary mb-2 mr-1">{{ $notification->data['status'] }}</span>
+                                                    <p class="message">
+                                                        <span class="user-name">{{ $notification->data['title'] }}</span> for a period of <span class="user-name">{{ $notification->data['duration'] }}</span>
+                                                        started at {{ $notification->data['start_date'] }}
+                                                    </p>
+                                                    <span class="meta-date">{{ $notification->created_at->diffForHumans() }}</span>
                                                 </span>
-                                                <span class="meta-date">8 hours ago</span>
-                                            </span>
-                                            <!-- /media body -->
+                                                <!-- /media body -->
 
-                                        </a>
-                                        <!-- /media -->
-
-                                        <!-- Media -->
-                                        <a href="javascript:void(0)" class="media">
-
-                                            <!-- Avatar -->
-                                            <img class="dt-avatar mr-3" src="https://via.placeholder.com/150x150"
-                                                 alt="User">
-                                            <!-- avatar -->
-
-                                            <!-- Media Body -->
-                                            <span class="media-body">
-                                                <span class="message">
-                                                    <span class="user-name">Jonathan Madano</span> commented on your post.
-                                                </span>
-                                                <span class="meta-date">9 hours ago</span>
-                                            </span>
-                                            <!-- /media body -->
-
-                                        </a>
-                                        <!-- /media -->
-
-                                        <!-- Media -->
-                                        <a href="javascript:void(0)" class="media">
-
-                                            <!-- Avatar -->
-                                            <img class="dt-avatar mr-3" src="https://via.placeholder.com/150x150"
-                                                 alt="User">
-                                            <!-- avatar -->
-
-                                            <!-- Media Body -->
-                                            <span class="media-body">
-                                                <span class="message">
-                                                    <span class="user-name">Chelsea Brown</span> sent a video recomendation.
-                                                </span>
-                                                <span class="meta-date">
-                                                    <i class="icon icon-play-circle text-primary icon-fw mr-1"></i>
-                                                13 hours ago
-                                                </span>
-                                            </span>
-                                            <!-- /media body -->
-
-                                        </a>
-                                        <!-- /media -->
-
-                                        <!-- Media -->
-                                        <a href="javascript:void(0)" class="media">
-
-                                            <!-- Avatar -->
-                                            <img class="dt-avatar mr-3" src="https://via.placeholder.com/150x150"
-                                                 alt="User">
-                                            <!-- avatar -->
-
-                                            <!-- Media Body -->
-                                            <span class="media-body">
-                                                <span class="message">
-                                                    <span class="user-name">Alex Dolgove</span> and <span class="user-name">Chris Harris</span>
-                                                like your post.
-                                                </span>
-                                                <span class="meta-date">
-                                                    <i class="icon icon-like text-light-blue icon-fw mr-1"></i>
-                                                yesterday at 9:30
-                                                </span>
-                                            </span>
-                                            <!-- /media body -->
-
-                                        </a>
-                                        <!-- /media -->
+                                            </a>
+                                            <!-- /media -->
+                                        @endforeach
                                     </div>
 
                                 </div>

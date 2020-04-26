@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Traits\HasFunction;
 use App\Http\Requests\TrainingRequest;
 use App\Classes\Base;
+use App\User;
 use Image;
 
 class TrainingController extends Controller
@@ -22,6 +23,8 @@ class TrainingController extends Controller
      * @var [type]
      */
     protected $instance;
+
+    protected $url;
 
     /**
      * 
@@ -41,6 +44,7 @@ class TrainingController extends Controller
     public function index()
     {
         $trainings = auth()->user()->trainings;
+        // User::find(1)->notify(new TrainingCategorised);
         return view('modules.trainings.index', compact('trainings'));
     }
 
@@ -79,7 +83,9 @@ class TrainingController extends Controller
             $this->instance->addParticipant(auth()->user());
         }
 
-        return redirect()->route('trainings.show', $this->instance->label);
+        $this->url = $this->instance->details->count() >= 1 ? 'trainings.show' : 'details.create';
+
+        return redirect()->route($this->url, $this->instance->label);
     }
 
     /**

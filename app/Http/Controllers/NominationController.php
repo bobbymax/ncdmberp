@@ -145,6 +145,8 @@ class NominationController extends Controller
                 $nomination = new Nomination;
                 $nomination->createOrUpdateFormat($this->staff, $this->detail, $this->department);
 
+                // $nomination->user->notify(new )
+
                 if (!in_array($this->department->id, $this->detail->currentDepartments())) {
                     $this->departments[] = $this->department->id;
                 }

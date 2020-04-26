@@ -65,7 +65,7 @@
 				<div class="col-12 mt-5">
 					<div class="btn-group" role="group" aria-label="Basic example">
 	                    <a href="{{ route('trainings.index') }}" class="btn btn-sm btn-danger"><i class="icon icon-settings icon-lg mr-3"></i> {{ strtoupper('Cancel') }}</a>
-	                    <button type="submit" class="btn btn-sm btn-success"><i class="icon icon-send icon-lg mr-3"></i> {{ strtoupper('Create or Add Participant') }}</button>
+	                    <button type="submit" class="btn btn-sm btn-success"><i class="icon icon-send icon-lg mr-3"></i> {{ strtoupper('Create or Add Item') }}</button>
 	                </div>
 				</div>
 

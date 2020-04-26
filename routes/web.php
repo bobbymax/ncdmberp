@@ -33,6 +33,7 @@ Route::prefix('dashboard')->group(function() {
 	Route::get('manage/nominations', 'NominationController@manage')->name('manage.nominations');
 	Route::get('hr/nominations', 'NominationController@nominations')->name('hr.nominations');
 	Route::resource('nominations', 'NominationController');
+	
 	// Staff Controller Section
 	Route::get('training/details/{detail}/attendee', 'AjaxFormController@addAttendeeToClass')->name('add.attendee');
 	Route::resource('trainings/{training}/details', 'TrainingDetailController');
