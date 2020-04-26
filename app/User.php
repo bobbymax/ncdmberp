@@ -78,6 +78,11 @@ class User extends Authenticatable
         return $this->departments->where('vocabulary_id', $this->volt('dept'))->first()->id;
     }
 
+    public function department()
+    {
+        return $this->departments->where('vocabulary_id', $this->volt('dept'))->first()->code;
+    }
+
     public function uncategorisedTrainings()
     {
         return $this->trainings->where('state', 'archived')->where('action', 'completed')->where('status', 0);
