@@ -24,6 +24,8 @@ class User extends Authenticatable
 
     protected $filename;
 
+    protected $result;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -73,14 +75,36 @@ class User extends Authenticatable
         return $this->belongsToMany(Training::class, 'training_user');
     }
 
+    public function details()
+    {
+        return $this->belongsToMany(TrainingDetail::class, 'staff_trainings');
+    }
+
+    public function printable()
+    {
+        return $this->details->where('categorised', 1)->sortByDesc('start_date');
+    }
+
+    public function hierarchy()
+    {
+        $directorate = $this->department('dir');
+        $division = $this->department('div');
+        $department = $this->department('dept');
+
+        $hasDivision =  $division !== null ? $division . "/" : '';
+
+        return $directorate . "/" . $hasDivision . $department;
+    }
+
     public function deptID()
     {
         return $this->departments->where('vocabulary_id', $this->volt('dept'))->first()->id;
     }
 
-    public function department()
+    public function department($str)
     {
-        return $this->departments->where('vocabulary_id', $this->volt('dept'))->first()->code;
+        $this->result = $this->departments->where('vocabulary_id', $this->volt($str))->first();
+        return is_object($this->result) ? $this->result->code : null;
     }
 
     public function uncategorisedTrainings()

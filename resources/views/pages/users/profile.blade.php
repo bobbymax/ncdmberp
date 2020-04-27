@@ -196,7 +196,7 @@
                                             <!-- Media Body -->
                                             <div class="media-body">
                                                 <span class="d-block text-light-gray f-12 mb-1">Works at</span>
-                                                <p class="h5 mb-0">{{ $staff->department() }}</p>
+                                                <p class="h5 mb-0">{{ $staff->department('dept') }}</p>
                                             </div>
                                             <!-- /media body -->
 

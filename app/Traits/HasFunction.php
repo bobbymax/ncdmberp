@@ -30,7 +30,7 @@ trait HasFunction
 
 	public function volt(string $str) : int 
 	{
-		$vocabulary = Vocabulary::where('code', $str)->first();
+		$vocabulary = Vocabulary::where('code', $str)->firstOrFail();
 		return is_object($vocabulary) ? $vocabulary->id : 3;
 	}
 
