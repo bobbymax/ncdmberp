@@ -17,6 +17,21 @@
                     <span class="dt-side-nav__text">Dashboard</span> </a>
             </li>
 
+            <!-- Menu Header -->
+            <li class="dt-side-nav__item dt-side-nav__header">
+                <span class="dt-side-nav__text">Consumables</span>
+            </li>
+            <!-- /menu header -->
+
+            @foreach ($resources as $resource)
+                <!-- Menu Item -->
+                <li class="dt-side-nav__item">
+                    <a href="{{ route('fetch.resource', $resource->label) }}" class="dt-side-nav__link" title="{{ $resource->name }}">
+                        <i class="icon icon-listall icon-fw icon-lg"></i> <span
+                            class="dt-side-nav__text">{{ $resource->name }}</span> </a>
+                </li>
+            @endforeach
+
 
             @foreach ($modules as $module)
                 @can('accessible', $module->application)

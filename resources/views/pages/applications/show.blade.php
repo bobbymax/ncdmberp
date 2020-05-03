@@ -21,28 +21,30 @@
         <a href="{{ route('modules.create', $application->code) }}" class="btn btn-primary btn-sm">Add Module</a>
     </div>
 </div>
-@foreach ($application->modules as $module)
-    @can('accessible', $module)
-        <div class="col-3 col-sm-3">
-            <!-- Card -->
-            <div class="card dt-card__full-height bg-gradient-blue text-white">
+<div class="row">
+    @foreach ($application->modules as $module)
+        @can('accessible', $module)
+            <div class="col-3 col-sm-3">
+                <!-- Card -->
+                <div class="card dt-card__full-height bg-gradient-blue text-white">
 
-                <!-- Card Body -->
-                <div class="card-body p-6">
-                    <div class="d-flex flex-wrap mb-3">
-                        <ion-icon name="albums-outline" size="large"></ion-icon>
-                        <a class="text-white ml-auto" href="{{ route('modules.show', [$application->code, $module->code]) }}"><i class="icon icon-arrow-right icon-2x"></i></a>
+                    <!-- Card Body -->
+                    <div class="card-body p-6">
+                        <div class="d-flex flex-wrap mb-3">
+                            <ion-icon name="albums-outline" size="large"></ion-icon>
+                            <a class="text-white ml-auto" href="{{ route('modules.show', [$application->code, $module->code]) }}"><i class="icon icon-arrow-right icon-2x"></i></a>
+                        </div>
+
+                        <p class="display-3 mb-2 font-weight-500">{{ strtoupper($module->code) }}</p>
+                        <p class="card-text">{{ $module->name }}  | <a href="{{ route('modules.edit', [$application->code, $module->code]) }}">edit</a></p>
                     </div>
+                    <!-- /card body -->
 
-                    <p class="display-3 mb-2 font-weight-500">{{ strtoupper($module->code) }}</p>
-                    <p class="card-text">{{ $module->name }}  | <a href="{{ route('modules.edit', [$application->code, $module->code]) }}">edit</a></p>
                 </div>
-                <!-- /card body -->
+                <!-- /card -->
 
             </div>
-            <!-- /card -->
-
-        </div>
-    @endcan
-@endforeach
+        @endcan
+    @endforeach
+</div>
 @stop

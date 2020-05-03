@@ -14,6 +14,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('dashboard')->group(function() {
 
+	Route::get('nogic/resources/{resource}/fetch', 'NogicApiController@redirectToGateway')->name('fetch.resource');
+	Route::get('trainings/callback', 'NogicApiController@handleGatewayCallback');
+
 	// Trainings
 	Route::get('autocomplete', 'AjaxFormController@autocomplete')->name('autocomplete');
 	Route::post('populate/major', 'AjaxFormController@major')->name('populate.existing');
@@ -48,6 +51,7 @@ Route::prefix('dashboard')->group(function() {
 
 
 Route::prefix('admin')->group(function() {
+	Route::resource('apiResources', 'ApiResourceController');
 	Route::resource('{module}/pages', 'PageController');
 	Route::resource('{application}/modules', 'ModuleController');
 	Route::resource('groups', 'GroupController');

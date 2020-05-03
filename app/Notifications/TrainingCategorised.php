@@ -44,7 +44,7 @@ class TrainingCategorised extends Notification
             'trainingID' => $this->detail->id,
             'title' => $this->detail->training->title,
             'status' => $this->detail->status,
-            'start_date' => $this->detail->start_date->format('d M'),
+            'start_date' => $this->detail->start_date->diffForHumans(),
             'duration' => $this->detail->duration(),
         ];
     }
