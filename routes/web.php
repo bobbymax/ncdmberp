@@ -17,6 +17,10 @@ Route::prefix('dashboard')->group(function() {
 	Route::get('nogic/resources/{resource}/fetch', 'NogicApiController@redirectToGateway')->name('fetch.resource');
 	Route::get('trainings/callback', 'NogicApiController@handleGatewayCallback');
 
+	// Tasks
+	Route::resource('tasks', 'TaskController');
+	Route::resource('milestones', 'MilestoneController');
+
 	// Trainings
 	Route::get('autocomplete', 'AjaxFormController@autocomplete')->name('autocomplete');
 	Route::post('populate/major', 'AjaxFormController@major')->name('populate.existing');

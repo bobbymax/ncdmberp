@@ -10,4 +10,14 @@ class ApiResource extends Model
     {
         return 'label';
     }
+
+    public function nuggets()
+    {
+    	return $this->hasMany(Nugget::class);
+    }
+
+    public function browseable()
+    {
+    	return $this->nuggets->where('browse', 1)->where('deny', 0);
+    }
 }

@@ -8,14 +8,20 @@ use App\ApiResource;
 
 class NogicApiController extends Controller
 {
+
+	protected $data = [];
+
     public function __construct()
     {
     	$this->middleware('auth');
     }
 
     public function redirectToGateway(ApiResource $resource)
-    {
-        $nogic = new NogicApi($resource);
-        return $nogic->build()->fetch();
+    { 
+        $response = (new NogicApi($resource))->build()->fetch();
+        return view('modules.consumables.index', compact('response', 'resource'));
+
+        // return $response;
     }
+
 }

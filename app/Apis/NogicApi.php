@@ -4,6 +4,7 @@
 namespace App\Apis;
 
 use App\ApiResource;
+use App\Classes\Consumable;
 
 
 class NogicApi
@@ -59,6 +60,22 @@ class NogicApi
 
 	/**
 	 * 
+	 * Response Keys
+	 * @var [type]
+	 * 
+	 */
+	protected $keys;
+
+	/**
+	 * 
+	 * Response data
+	 * @var [type]
+	 * 
+	 */
+	protected $data;
+
+	/**
+	 * 
 	 * Instanciate Curl on call
 	 * returns Curl Init
 	 * 
@@ -83,13 +100,25 @@ class NogicApi
 
 	public function fetch()
 	{
-		return $this->errors ? "curl error #:" . $this->errors : $this->response;
+
+		if ($this->errors) {
+			return "curl error #: " . $this->errors;
+		}
+
+		$this->data = json_decode($this->response, true);
+		(new Consumable($this->resource))->storeKeys($this->collectKeys($this->data));
+
+		return $this->data['data'];
+
 	}
 
-
-	public function redirectNow()
+	private function collectKeys($data)
 	{
-		return redirect($this->url);
+		foreach ($data['data'] as $value) {
+			$this->keys = array_keys($value);
+		}
+
+		return $this->keys;
 	}
 
 
