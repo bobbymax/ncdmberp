@@ -23,14 +23,17 @@
             </li>
             <!-- /menu header -->
 
-            @foreach ($resources as $resource)
-                <!-- Menu Item -->
-                <li class="dt-side-nav__item">
-                    <a href="{{ route('fetch.resource', $resource->label) }}" class="dt-side-nav__link" title="{{ $resource->name }}">
-                        <i class="icon icon-listall icon-fw icon-lg"></i> <span
-                            class="dt-side-nav__text">{{ $resource->name }}</span> </a>
-                </li>
-            @endforeach
+
+            @if (auth()->user()->isAdministrator())
+                @foreach ($resources as $resource)
+                    <!-- Menu Item -->
+                    <li class="dt-side-nav__item">
+                        <a href="{{ route('fetch.resource', $resource->label) }}" class="dt-side-nav__link" title="{{ $resource->name }}">
+                            <i class="icon icon-listall icon-fw icon-lg"></i> <span
+                                class="dt-side-nav__text">{{ $resource->name }}</span> </a>
+                    </li>
+                @endforeach
+            @endif
 
 
             @foreach ($modules as $module)
