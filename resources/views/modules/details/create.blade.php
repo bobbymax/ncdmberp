@@ -56,6 +56,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         @error('start_date')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

@@ -26,8 +26,8 @@ class TrainingRequest extends FormRequest
         return [
             'vendor' => 'required|string|max:255',
             'location' => 'required|string|max:255',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
+            'start_date' => 'required|date|before:today',
+            'end_date' => 'required|date|after:start_date|before:today',
             'qualification_id' => 'required|string',
             'course_id' => 'required|integer',
             'sponsor' => 'required|string|max:255',
