@@ -9,15 +9,11 @@ use App\Department;
 use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-// use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
 use Image;
 
 class StaffController extends Controller
 {
-
-    protected $filename;
-
     public function __construct()
     {
         $this->middleware('auth');

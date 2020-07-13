@@ -56,6 +56,7 @@ Route::prefix('dashboard')->group(function() {
 
 
 Route::prefix('admin')->group(function() {
+	Route::resource('staffs', 'StaffController');
 	Route::resource('apiResources', 'ApiResourceController');
 	Route::resource('{module}/pages', 'PageController');
 	Route::resource('{application}/modules', 'ModuleController');
@@ -64,7 +65,6 @@ Route::prefix('admin')->group(function() {
 	Route::resource('roles', 'RoleController');
 	Route::resource('departments', 'DepartmentController');
 	Route::resource('vocabularies', 'VocabularyController');
-	Route::resource('staffs', 'StaffController');
 	Route::resource('locations', 'LocationController');
 	Route::resource('grades', 'GradeController');
 
