@@ -5,7 +5,9 @@
        Trainings 
     </h1><br>
     <a href="{{ route('trainings.create') }}" class="btn btn-sm btn-primary">Add Training</a>
-    <a href="{{ route('print.trainings', auth()->user()->staff_no) }}" class="btn btn-info btn-sm">Print Trainings</a>
+    @if (auth()->user()->details->where('completed', 1)->where('categorised', 1)->count() > 0)
+        <a href="{{ route('print.trainings', auth()->user()->staff_no) }}" class="btn btn-info btn-sm">Print Trainings</a>
+    @endif
 </div>
 @stop
 @section('content')

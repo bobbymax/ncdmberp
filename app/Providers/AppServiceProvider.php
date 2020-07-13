@@ -34,5 +34,9 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('partials.top-navigation', function($view) {
             $view->with('applications', \App\Application::where('active', 1)->latest()->get());
         });
+
+        view()->composer('pages.index', function($view) {
+            $view->with('nominations', \App\Nomination::where('state', 'approved')->latest()->get());
+        });
     }
 }

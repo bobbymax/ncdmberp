@@ -69,7 +69,7 @@ class TrainingController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|string|max:255',
-            'major_id' => 'required|integer',
+            'major' => 'required|string',
         ]);
 
         $this->instance = $this->verifyExistance($request->title);

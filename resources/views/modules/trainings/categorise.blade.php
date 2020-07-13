@@ -13,7 +13,7 @@
     </div>
 @endif
 
-    
+@if ($details->count() > 0)
     <!-- Grid -->
     <div class="row">
         @foreach ($details as $detail)
@@ -116,7 +116,11 @@
         @endforeach
     </div>
     <!-- end grid -->
-
+@else
+    <div class="alert alert-success">
+        There are no uncategorised trainings at the moment.
+    </div>
+@endif
 
 
 @stop

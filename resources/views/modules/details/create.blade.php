@@ -8,6 +8,17 @@
 	</div>
 @stop
 @section('content')
+
+@if(! $errors->isEmpty())
+	<div class="alert alert-danger">
+		<p>Please correct the following errors:</p>
+		<ul>
+			@foreach ($errors->all() as $error)
+				<li>{{ $error }}</li>
+			@endforeach
+		</ul>
+	</div>
+@endif
 <!-- Card -->
 <div class="dt-card">
     <!-- Card Body -->

@@ -124,7 +124,7 @@ class User extends Authenticatable
 
     public function nominations()
     {
-        return $this->hasMany(Nomination::class);
+        return $this->hasMany(Nomination::class, 'staff_id');
     }
 
     public function actAs(Role $role)

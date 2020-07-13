@@ -9,6 +9,7 @@ use App\Qualification;
 use App\Training;
 use App\TrainingDetail;
 use App\Course;
+use App\Major;
 use App\User;
 
 class AjaxFormController extends Controller
@@ -40,6 +41,20 @@ class AjaxFormController extends Controller
         }
     }
 
+    public function fetchMajor(Request $request)
+    {
+        if ($request->ajax()) {
+            $majors = [];
+            $results = Major::select('name')->where("name", "LIKE", "%{$request->input('query')}%")->get();
+
+            foreach ($results as $result) {
+                $majors[] = $result;   
+            }
+
+            return response()->json($majors);
+        }
+    }
+
     public function loadStaffs(Request $request)
     {
         if ($request->ajax()) {
@@ -57,7 +72,7 @@ class AjaxFormController extends Controller
     {
         if ($request->ajax()) {
             $training = $this->verifyExistance($request->title);
-            $result = $training !== null ? $training->major->id : 0;
+            $result = $training !== null ? $training->major : 0;
 
             return response()->json(['status' => 'success', 'value' => $result]);
         }

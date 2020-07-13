@@ -10,6 +10,8 @@ class Major extends Model
 	protected const ACTIVE = 1;
 	protected const NOT_ACTIVE = 1;
 
+    protected $guarded = ['id'];
+
     public function getRouteKeyName()
 	{
 		return 'label';

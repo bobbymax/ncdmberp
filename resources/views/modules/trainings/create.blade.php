@@ -39,27 +39,16 @@
 				</div>
 
 				<div class="col-6 mb-5">
-				
 					<div class="form-group">
+						<label for="major" class="mb-3">Training Major</label>
+						<input type="text" class="form-control form-control-lg @error('major') is-invalid @enderror" name="major" id="major" autocomplete="off" placeholder="Enter Training Major">
 
-						<label for="major_id" class="mb-3">Training Major</label>
-						<select class="form-control form-control-lg" name="major_id" id="major_id">
-							
-							<option value="0" disabled selected>Select Training Major</option>
-							@foreach ($majors as $major)
-								<option value="{{ $major->id }}">{{ $major->name }}</option>
-							@endforeach
-
-						</select>
-
-						@error('major_id')
-	                        <span class="invalid-feedback" role="alert">
-	                            <strong>{{ $message }}</strong>
-	                        </span>
-	                    @enderror
-
+						@error('major')
+							<span class="invalid-feedback" role="alert">
+								<strong>{{ $message }}</strong>
+							</span>
+						@enderror
 					</div>
-
 				</div>
 
 				<div class="col-12 mt-5">
@@ -88,6 +77,7 @@
 
 		var path = "{{ route('autocomplete') }}";
 		var url = "{{ route('populate.existing') }}";
+		var majorPath = "{{ route('check.major') }}";
 		var token = "{{ csrf_token() }}";
 		
 		$(document).ready(function() {
@@ -99,6 +89,15 @@
 	                    return process(data);
 	                });
 	            }
+	        });
+
+	        $('#major').typeahead({
+	        	minLength: 1,
+	        	source: function (query, process) {
+	        		return $.get(majorPath, {query: query}, function (data) {
+	        			return process(data);
+	        		});
+	        	}
 	        });
 
 	        $('#title').on('change', function() {
@@ -113,7 +112,7 @@
 			        method : 'POST',
 			        success : function(data) {
 			            if ( data.status === 'success' ) {
-			                $("#major_id").val(data.value);
+			                $("#major").val(data.value.name);
 			            }
 			        },
 			        error : function(data) {

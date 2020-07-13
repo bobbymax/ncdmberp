@@ -23,6 +23,7 @@ Route::prefix('dashboard')->group(function() {
 
 	// Trainings
 	Route::get('autocomplete', 'AjaxFormController@autocomplete')->name('autocomplete');
+	Route::get('get-major', 'AjaxFormController@fetchMajor')->name('check.major');
 	Route::post('populate/major', 'AjaxFormController@major')->name('populate.existing');
 	Route::post('dependencies', 'AjaxFormController@reveal')->name('get.dependencies');
 	Route::post('get/staffs', 'AjaxFormController@loadStaffs')->name('get.staffs');

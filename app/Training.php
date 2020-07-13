@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\HasFunction;
 use App\Classes\Base;
 use App\User;
+use App\Major;
 
 class Training extends Model
 {
@@ -72,6 +73,20 @@ class Training extends Model
         return $this->belongsTo(Major::class, 'major_id');
     }
 
+    protected function createOrUpdateMajor($str)
+    {
+        $major = Major::where('label', $this->slugify($str))->first();
+
+        if (! $major) {
+            $major = Major::create([
+                'name' => $str,
+                'label' => $this->slugify($str),
+            ]);
+        }
+
+        return $major;
+    }
+
     public function verify(array $data)
     {
         return $this->details->where('vendor', $data['vendor'])
@@ -82,7 +97,9 @@ class Training extends Model
 
     public function createOrUpdateFormat(array $data)
     {
-        $this->major_id = $data['major_id'];
+        $major = $this->createOrUpdateMajor($data['major']);
+
+        $this->major_id = $major->id;
         $this->title = $data['title'];
         $this->label = $this->slugify($data['title']);
         $this->save();
