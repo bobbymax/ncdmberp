@@ -44,6 +44,13 @@
                             <td>{{ ucwords($staff->type) }}</td>
                             <td>{{ ucwords($staff->status) }}</td>
                             <td>
+
+                                <div class="btn-group float-right" role="group" aria-label="Basic example">
+                                    <a href="{{ route('staffs.show', $staff->staff_no) }}" class="btn btn-sm btn-success"><i class="icon icon-eye icon-lg"></i></a>
+                                    <a href="{{ route('staffs.edit', $staff->staff_no) }}" class="btn btn-sm btn-info"><i class="icon icon-settings icon-lg"></i></a>
+                                </div>
+
+                                {{--  
 								
 								<form action="{{ route('staffs.destroy', $staff->staff_no) }}" method="POST">
 									@csrf
@@ -57,6 +64,7 @@
                                         @endif
 	                                </div>
 								</form>
+                                --}}
                             </td>
                         </tr>
                     @endforeach
