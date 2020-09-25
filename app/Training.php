@@ -97,7 +97,7 @@ class Training extends Model
 
     public function createOrUpdateFormat(array $data)
     {
-        $major = $this->createOrUpdateMajor($data['major']);
+        $major = $this->createOrUpdateMajor($data['major_id']);
 
         $this->major_id = $major->id;
         $this->title = $data['title'];

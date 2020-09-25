@@ -49,7 +49,7 @@
 							
 							<option value="0" disabled selected>Select Training Major</option>
 							@foreach ($majors as $major)
-								<option value="{{ $major->id }}">{{ $major->name }}</option>
+								<option value="{{ $major->label }}">{{ $major->name }}</option>
 							@endforeach
 
 						</select>
