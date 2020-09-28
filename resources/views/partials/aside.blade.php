@@ -41,24 +41,27 @@
 
             @foreach ($modules as $module)
                 @can('accessible', $module->application)
-                    <!-- Menu Header -->
-                    <li class="dt-side-nav__item dt-side-nav__header">
-                        <span class="dt-side-nav__text">{{ $module->name }}</span>
-                    </li>
-                    <!-- /menu header -->
 
-                    @foreach ($module->pages as $page)
-                        @can('accessible', $page)
-                            @if ($page->menu == 1)
-                                <!-- Menu Item -->
-                                <li class="dt-side-nav__item">
-                                    <a href="{{ route($page->route) }}" class="dt-side-nav__link" title="{{ $page->name }}">
-                                        <i class="icon {{ $page->icon }} icon-fw icon-lg"></i> <span
-                                            class="dt-side-nav__text">{{ $page->name }}</span> </a>
-                                </li>
-                            @endif
-                        @endcan
-                    @endforeach
+                    @if ($module->hasChildren()->count() > 0)
+                        <!-- Menu Header -->
+                        <li class="dt-side-nav__item dt-side-nav__header">
+                            <span class="dt-side-nav__text">{{ $module->name }}</span>
+                        </li>
+                        <!-- /menu header -->
+
+                        @foreach ($module->pages as $page)
+                            @can('accessible', $page)
+                                @if ($page->menu == 1 && $page->is_published == 1)
+                                    <!-- Menu Item -->
+                                    <li class="dt-side-nav__item">
+                                        <a href="{{ route($page->route) }}" class="dt-side-nav__link" title="{{ $page->name }}">
+                                            <i class="icon {{ $page->icon }} icon-fw icon-lg"></i> <span
+                                                class="dt-side-nav__text">{{ $page->name }}</span> </a>
+                                    </li>
+                                @endif
+                            @endcan
+                        @endforeach
+                    @endif
                 @endcan
             @endforeach
 

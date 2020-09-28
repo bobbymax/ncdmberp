@@ -31,7 +31,7 @@ class NominationRequest extends FormRequest
             'end_date' => 'required|date',
             'qualification_id' => 'required|string',
             'course_id' => 'required|integer',
-            'major_id' => 'required|integer',
+            'major_id' => 'required|string',
             'sponsor' => 'required|string|max:255',
             'resident' => 'required|string|max:255',
             'staffs' => 'required|string',

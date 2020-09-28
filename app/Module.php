@@ -21,6 +21,11 @@ class Module extends Model
     	return $this->hasMany(Page::class);
     }
 
+    public function hasChildren()
+    {
+        return $this->pages->where('is_published', 1);
+    }
+
     public static function states()
     {
         return [
