@@ -59,7 +59,7 @@ class StaffController extends Controller
             'staff_no' => 'required|integer',
             'grade_level' => 'required|string|max:255',
             'location' => 'required|string|max:255',
-            'mobile' => 'required',
+            'mobile' => 'required|unique:users',
             'office_no' => 'required|integer',
             'type' => 'required|string|max:255',
         ]);
