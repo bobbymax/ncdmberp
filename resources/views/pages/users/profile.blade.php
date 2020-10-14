@@ -30,7 +30,7 @@
                 <!-- /info -->
             </div>
             <!-- /avatar wrapper -->
-
+            {{--  
             <div class="ml-sm-auto">
                 <!-- List -->
                 <ul class="dt-list dt-list-bordered dt-list-col-4">
@@ -55,6 +55,7 @@
                 </ul>
                 <!-- /list -->
             </div>
+            --}}
         </div>
         <!-- /profile banner top -->
 
