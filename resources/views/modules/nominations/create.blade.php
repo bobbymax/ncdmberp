@@ -44,8 +44,8 @@
 				
 					<div class="form-group">
 
-						<label for="major_id">Training Major</label>
-						<select class="form-control" name="major_id" id="major_id">
+						<label for="major">Training Major</label>
+						<select class="form-control" name="major" id="major">
 							
 							<option value="0" disabled selected>Select Training Major</option>
 							@foreach ($majors as $major)
@@ -54,7 +54,7 @@
 
 						</select>
 
-						@error('major_id')
+						@error('major')
 	                        <span class="invalid-feedback" role="alert">
 	                            <strong>{{ $message }}</strong>
 	                        </span>

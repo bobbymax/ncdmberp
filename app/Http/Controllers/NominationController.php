@@ -153,9 +153,9 @@ class NominationController extends Controller
                 // $this->detail->storeDepartment($this->department);
             }
 
-            foreach ($this->departments as $value) {
-                $this->detail->storeDepartment($value);
-            }
+            // foreach ($this->departments as $value) {
+            //     $this->detail->storeDepartment($value);
+            // }
         }
         
         return redirect()->route('hr.nominations')->with('status', 'Staffs nominations have been saved successfully.'); 

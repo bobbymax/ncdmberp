@@ -35,7 +35,10 @@
                 <tbody>
                     
                     @foreach ($details as $detail)
-                        @if (in_array(auth()->user()->deptID(), $detail->currentDepartments()))
+                        @php
+                            $deptIDs = $detail->nominations->pluck('department_id')->toArray();
+                        @endphp
+                        @if (in_array(auth()->user()->deptID(), $deptIDs))
                             <tr class="gradeX">
                                 <td>{{ $detail->training->title }}</td>
                                 <td>{{ $detail->course->name }}</td>
