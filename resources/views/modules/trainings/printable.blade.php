@@ -6,6 +6,8 @@
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;400;500&display=swap" rel="stylesheet">
+
 	<style type="text/css">
 		.page-title { text-transform: uppercase; } .pull-left { float: left; } .pull-right { float: right; } .clearfix { clear: both; } .width10 { width: 10%; } .width15 { width: 15%; } .width20 { width: 20%; } .width80 { width: 80%; } .width85 { width: 85%; } .width90 { width: 90%; } .mt-15 { margin-top: 15px !important; } .strong { font-weight: bolder; } .mt-30 { margin-top : 30px  !important; } .mt-50 { margin-top : 50px  !important; } p { font-size: 18px; } .ml-30 { margin-left: 30px; } .mr-30  { margin-right: 30px; } .ml-150 { margin-left: 150px; } .mr-150 { margin-left: 150px; } .ml-40 { margin-left: 40px; } .ml-100 { margin-left: 100px; } .underline { text-decoration: underline; } .full-width { width: 100%; } table, th, td { border: 1px solid #777; } th, td {  padding: 5px; }
 	</style>

@@ -16,8 +16,12 @@
                             <i class="icon icon-bitcoin text-primary mr-1 icon-2x"></i>
                             <span class="align-middle">No. of Trainings</span>
                         </h3>
+
+
                     </div>
                     <!-- /card heading -->
+
+                    <div id="chart" style="height: 300px;"></div>
 
                 </div>
                 <!-- /card header -->
@@ -190,4 +194,14 @@
         </div>
         <!-- /grid item -->
 	</div>
+@stop
+@section('scripts')
+
+    <script>
+        const chart = new Chartisan({
+            el: '#chart',
+            
+        });
+    </script>
+
 @stop

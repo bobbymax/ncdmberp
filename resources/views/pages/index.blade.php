@@ -19,6 +19,8 @@
                     </div>
                     <!-- /card heading -->
 
+                    <div id="chart" style="height: 300px;"></div>
+
                 </div>
                 <!-- /card header -->
 
@@ -190,4 +192,14 @@
         </div>
         <!-- /grid item -->
 	</div>
+@stop
+@section('scripts')
+
+    <script>
+        const chart = new Chartisan({
+            el: '#chart',
+            url: "{{ route('charts.trainings') }}",
+        });
+    </script>
+
 @stop
