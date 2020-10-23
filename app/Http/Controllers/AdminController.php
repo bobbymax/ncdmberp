@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Traits\HasFunction;
 use App\Training;
+use App\Major;
+use App\Certificate;
 use App\TrainingDetail;
 use App\Notifications\TrainingCategorised;
 use App\User;
@@ -13,6 +15,8 @@ use App\Staff;
 class AdminController extends Controller
 {
 	use HasFunction;
+
+    protected $message;
 
     public function __construct()
     {
@@ -26,8 +30,35 @@ class AdminController extends Controller
      */
     public function uncategorisedTrainings()
     {
-    	$details = TrainingDetail::where('completed', 1)->where('categorised', 0)->get();
+    	$details = TrainingDetail::with('certificates')->where('completed', 1)->where('categorised', 0)->get();
     	return view('modules.trainings.categorise', compact('details'));
+    }
+
+    public function verifyStaffs(TrainingDetail $training)
+    {
+        return view('modules.trainings.confirm-staff', compact('training'));
+    }
+
+    public function trainingConfirmation(Certificate $certificate, $action = "approved")
+    {
+        $certificate->status = $action;
+        $certificate->confirmed = 1;
+        $certificate->save();
+
+        if ($action === "denied") {
+            $certificate->parent->staffs()->detach($certificate->staff);
+            $this->message = "Staff has been denied and removed from this training";
+        } else {
+            $this->message = 'Training for this staff has been confirmed';
+        }
+
+        return back()->with('status', $this->message);
+    }
+
+    public function trainingEdit(Training $training, TrainingDetail $detail)
+    {
+        $majors = Major::latest()->get();
+        return view('modules.trainings.hr-edit', compact('training', 'detail', 'majors'));
     }
 
     public function schedule(TrainingDetail $detail)
@@ -50,6 +81,30 @@ class AdminController extends Controller
         }
 
         return back()->with('status', 'Training has been scheduled successfully.');
+    }
+
+    public function hrUpdateTraining(Request $request, Training $training, TrainingDetail $detail)
+    {
+        $this->validate($request, [
+            'major_id' => 'required|integer',
+            'course_id' => 'required|integer'
+        ]);
+
+        if ($training->major->id != $request->major_id || $detail->course->id != $request->course_id) {
+            // Training Update
+            $training->major_id = $request->major_id;
+            $training->save();
+
+            // Training Details Update
+            $detail->course_id = $request->course_id;
+            $detail->save();
+
+            $this->message = "Updates have been made to this training";
+        } else {
+            $this->message = "No changes made to this training";
+        }
+
+        return redirect()->route('uncategorise.trainings')->with('status', $this->message);
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Traits\HasFunction;
 use App\Classes\Base;
 use App\Qualification;
 use App\Training;
+use App\Certificate;
 use App\TrainingDetail;
 use App\Course;
 use App\Major;
@@ -78,9 +79,18 @@ class AjaxFormController extends Controller
         }
     }
 
-    public function addAttendeeToClass(TrainingDetail $detail)
+    public function addAttendeeToClass(Request $request, TrainingDetail $detail)
     {
+
+        $certificate = new Certificate;
+        $certificate->createOrUpdateFormat(auth()->user(), $detail, $request->certificate);
         $detail->addAttendee(auth()->user());
+
+        if ($detail->categorised == 1) {
+            $detail->categorised = 0;
+            $detail->save();
+        }
+
         return back()->with('status', 'You have been added to this class successfully.');
     }
 

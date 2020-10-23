@@ -104,16 +104,28 @@
 
 	                </div>
 	                <!-- /card body -->
-
+	                {{--  
 	                <!-- Button -->
 	                <a href="{{ !in_array(auth()->user()->id, $detail->attendees()) ? route('add.attendee', $detail->id) : 'javascript:void(0)' }}" class="btn btn-success btn-sm btn-block rounded-0" disabled>
 	                	@if (! in_array(auth()->user()->id, $detail->attendees()))
-	                		Add me to Class
+	                		Add me to actual class
 	                	@else
 	                		{{ $detail->completed === 1 ? 'Already Attended' : 'Yet to Complete' }}
 	                	@endif
 	            	</a>
 	                <!-- /button -->
+	                --}}
+	                <a href="javascript:void(0)" class="btn btn-success btn-block rounded-0 {{ in_array(auth()->user()->id, $detail->attendees()) ? ' disabled' : '' }}" data-toggle="modal" data-target="#exampleModalCenter{{ $detail->id }}">
+					  	@if (! in_array(auth()->user()->id, $detail->attendees()))
+	                		Add me to actual class
+	                	@elseif(\Carbon\Carbon::now() < Carbon\Carbon::parse($detail->end_date))
+	                		{{ __('Yet to Complete') }}
+	                	@else
+	                		{{ __('Already Attended') }}
+	                	@endif
+					</a>
+
+					@include('modals.certificate')
 
 	            </div>
 	            <!-- /card -->

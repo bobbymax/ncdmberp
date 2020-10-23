@@ -33,7 +33,11 @@ Route::prefix('dashboard')->group(function() {
 	// L & D Officer Controller Section
 	Route::get('proposals', 'AdminController@suggested')->name('proposals');
 	Route::get('confirm/{training}/category', 'AdminController@confirmCategory')->name('confirm.category');
+	Route::get('trainings/{training}/verify/staffs', 'AdminController@verifyStaffs')->name('verify.staffs');
+	Route::get('certificates/{certificate}/confirm/{action}/training', 'AdminController@trainingConfirmation')->name('confirm.staff.training');
+	Route::get('trainings/{training}/specs/{detail}/edit', 'AdminController@trainingEdit')->name('hr.details.edit');
 	Route::get('uncategorised/trainings', 'AdminController@uncategorisedTrainings')->name('uncategorise.trainings');
+	Route::patch('trainings/{training}/details/{detail}/hrUpdate', 'AdminController@hrUpdateTraining')->name('hr.details.update');
 
 	// Nominations Settings
 	Route::get('remove/{staff}/from/{training}', 'AdminController@retract')->name('remove.staff.nomination');
@@ -45,7 +49,7 @@ Route::prefix('dashboard')->group(function() {
 	Route::resource('nominations', 'NominationController');
 	
 	// Staff Controller Section
-	Route::get('training/details/{detail}/attendee', 'AjaxFormController@addAttendeeToClass')->name('add.attendee');
+	Route::post('training/details/{detail}/attendee', 'AjaxFormController@addAttendeeToClass')->name('add.attendee');
 	Route::resource('trainings/{training}/details', 'TrainingDetailController');
 	Route::resource('trainings', 'TrainingController');
 	Route::resource('majors', 'MajorController');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\TrainingDetail;
 use App\Training;
+use App\Certificate;
 use Illuminate\Http\Request;
 use App\Http\Requests\TrainingRequest;
 use App\Traits\RegularExpression;

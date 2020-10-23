@@ -17,6 +17,7 @@ class TrainingDetail extends Model
 	use HasFunction;
 
 	protected $filename;
+    protected $certificate_file;
 	protected $dates = ['start_date', 'end_date'];
 	protected const ARCHIVED = 1;
     protected const PENDING = 0;
@@ -155,9 +156,15 @@ class TrainingDetail extends Model
         $this->action = $action;
         $this->completed = ! $attention ? self::PENDING : self::ARCHIVED;
 
-        if ($this->save() && isset($data['certificate'])) {
+        if ($this->save()) {
+
+            if (isset($data['certificate'])) {
+                $this->certificate_file = $data['certificate'];
+                $this->addCertificate($this->certificate_file);
+            }
+
             $certificate = new Certificate;
-            $certificate->createOrUpdateFormat(auth()->user(), $this, $this->addCertificate($data['certificate']));
+            $certificate->createOrUpdateFormat(auth()->user(), $this, $this->certificate_file);
         }
 
         return $this;

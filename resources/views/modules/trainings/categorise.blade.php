@@ -2,7 +2,7 @@
 @section('page-header')
 <div class="dt-page__header">
     <h1 class="dt-page__title">
-       Categorise Trainings 
+       Verify Trainings 
     </h1>
 </div>
 @stop
@@ -32,7 +32,7 @@
                         </div>
                         <!-- /card heading -->
                         
-                        {{--  
+                        
                         <div class="dt-card__tools">
                             <a class="text-light-gray" href="javascript:void(0)" data-container="body"
                                data-toggle="popover"
@@ -48,11 +48,12 @@
                                         class="icon icon-chevrolet-down icon-lg"></i> </a>
 
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="{{ route('details.edit', [$detail->training->label, $detail->id]) }}">Edit</a>
+                                    <a class="dropdown-item" href="{{ route('hr.details.edit', [$detail->training->label, $detail->id]) }}">Edit</a>
                                 </div>
                             </div>
                         </div>
-                        --}}
+                        
+                        
 
                     </div>
                     <!-- /card header -->
@@ -60,7 +61,7 @@
                     <!-- Card Body -->
                     <div class="dt-card__body mt-5">
                         <!-- Project Title -->
-                        <h2>{{ $detail->training->title }}</h2>
+                        <h2><a href="{{ route('verify.staffs', $detail->id) }}">{{ $detail->training->title }}</a></h2>
                         <!-- /project title -->
 
                         <div class="justify-content-between">
@@ -103,7 +104,7 @@
                     <!-- /card body -->
 
                     <!-- Button -->
-                    <a href="{{ route('confirm.category', $detail->id) }}" class="btn btn-success btn-sm btn-block rounded-0" disabled>
+                    <a href="{{ route('confirm.category', $detail->id) }}" class="btn btn-success btn-sm btn-block rounded-0 {{ $detail->certificates->where('confirmed', 0)->count() > 0 ? ' disabled' : '' }}" disabled>
                         <i class="icon icon-task-manager icon-fw icon-lg mr-3"></i>{{ strtoupper('Confirm Training') }}
                     </a>
                     <!-- /button -->
@@ -117,7 +118,7 @@
     </div>
     <!-- end grid -->
 @else
-    <div class="alert alert-success">
+    <div class="alert alert-info">
         There are no uncategorised trainings at the moment.
     </div>
 @endif
