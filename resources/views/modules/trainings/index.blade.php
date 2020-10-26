@@ -48,7 +48,9 @@
                                             <a href="{{ route('trainings.show', $training->label) }}" class="btn btn-sm btn-success"><i class="icon icon-eye icon-lg"></i></a>
                                             @can('update', $training)
                                                 <a href="{{ route('trainings.edit', $training->label) }}" class="btn btn-sm btn-info"><i class="icon icon-settings icon-lg"></i></a>
-                                                <button type="submit" class="btn btn-sm btn-danger"><i class="icon icon-trash icon-lg"></i></button>
+                                                @can('delete', $training)
+                                                    <button type="submit" class="btn btn-sm btn-danger"><i class="icon icon-trash icon-lg"></i></button>
+                                                @endcan
                                             @endcan
                                         </div>
                                     </form>

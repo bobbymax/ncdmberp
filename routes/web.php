@@ -21,6 +21,7 @@ Route::prefix('dashboard')->group(function() {
 	// Tasks
 	Route::resource('tasks', 'TaskController');
 	Route::resource('milestones', 'MilestoneController');
+	Route::get('chart', 'ChartsApiController@index')->name('api.chart');
 
 	// Trainings
 	Route::get('autocomplete', 'AjaxFormController@autocomplete')->name('autocomplete');

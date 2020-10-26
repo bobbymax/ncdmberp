@@ -234,6 +234,11 @@ class User extends Authenticatable
         return $this->filename;
     }
 
+    public function trainingsCounter($str)
+    {
+        return $this->details->where('resident', $str)->count();
+    }
+
     public function isAdministrator()
     {
         return $this->roles->contains('label', Base::ADMINISTRATOR);
