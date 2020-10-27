@@ -20,15 +20,14 @@ class ChartsApiController extends Controller
     {
     	$confirmed = $this->statusCount("approved");
     	$pending = $this->statusCount("pending");
-    	$denied = $this->statusCount("denied");
     	$local = auth()->user()->trainingsCounter('local');
     	$international = auth()->user()->trainingsCounter('international');
 
-    	$labels = ['Verified - ' . $this->percentageStatus("approved"), 'Pending - ' . $this->percentageStatus("pending"), 'Denied', 'Local - ' . auth()->user()->percentageTraining('local'), 'International - ' . auth()->user()->percentageTraining('international')];
+    	$labels = ['Verified - ' . $this->percentageStatus("approved"), 'Pending - ' . $this->percentageStatus("pending"), 'Local - ' . auth()->user()->percentageTraining('local'), 'International - ' . auth()->user()->percentageTraining('international')];
 
     	// $data = compact('confirmed', 'pending', 'denied');
 
-    	$data = [$confirmed, $pending, $denied, $local, $international];
+    	$data = [$confirmed, $pending, $local, $international];
 
         return response()->json(compact('data', 'labels'));
     }
