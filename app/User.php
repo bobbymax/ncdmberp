@@ -239,6 +239,16 @@ class User extends Authenticatable
         return $this->details->where('resident', $str)->count();
     }
 
+    public function percentageTraining($str)
+    {
+        $counter = $this->trainingsCounter($str);
+        $trainings = $this->details->count();
+
+        $percent = ($counter / $trainings) * 100;
+
+        return round($percent, 2) . "%";
+    }
+
     public function isAdministrator()
     {
         return $this->roles->contains('label', Base::ADMINISTRATOR);

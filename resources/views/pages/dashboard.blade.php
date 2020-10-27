@@ -75,13 +75,7 @@
                     ]
                 }],
 
-                labels : [
-                    'Confirmed',
-                    'Pending',
-                    'Denied',
-                    'Local',
-                    'International'
-                ]
+                labels : []
             }
         });
 
@@ -95,6 +89,7 @@
                 },
                 success: function(data) {
                     myChart.data.datasets[0].data = data.data;
+                    myChart.data.labels = data.labels;
                     myChart.update();
                 },
                 error: function(data){

@@ -47,6 +47,12 @@ class AdminController extends Controller
 
         if ($action === "denied") {
             $certificate->parent->staffs()->detach($certificate->staff);
+            $certificate->parent->training->staffs()->detach($certificate->staff);
+
+            // if ($certificate->parent->sponsor !== "ncdmb") {
+            //     $certificate->parent->training->delete();
+            // }
+
             $this->message = "Staff has been denied and removed from this training";
         } else {
             $this->message = 'Training for this staff has been confirmed';

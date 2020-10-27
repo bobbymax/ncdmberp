@@ -18,16 +18,34 @@ class ChartsApiController extends Controller
 
     public function index()
     {
-    	$confirmed = Certificate::where('staff_id', auth()->user()->id)->where('status', 'approved')->count();
-    	$pending = Certificate::where('staff_id', auth()->user()->id)->where('status', 'pending')->count();
-    	$denied = Certificate::where('staff_id', auth()->user()->id)->where('status', 'denied')->count();
+    	$confirmed = $this->statusCount("approved");
+    	$pending = $this->statusCount("pending");
+    	$denied = $this->statusCount("denied");
     	$local = auth()->user()->trainingsCounter('local');
     	$international = auth()->user()->trainingsCounter('international');
+
+    	$labels = ['Verified - ' . $this->percentageStatus("approved"), 'Pending - ' . $this->percentageStatus("pending"), 'Denied', 'Local - ' . auth()->user()->percentageTraining('local'), 'International - ' . auth()->user()->percentageTraining('international')];
 
     	// $data = compact('confirmed', 'pending', 'denied');
 
     	$data = [$confirmed, $pending, $denied, $local, $international];
 
-        return response()->json(compact('data'));
+        return response()->json(compact('data', 'labels'));
     }
+
+    public function percentageStatus($str)
+    {
+    	$status = $this->statusCount($str);
+    	$trainings = auth()->user()->details->count();
+
+    	$percent = ($status / $trainings) * 100;
+
+    	return round($percent, 2) . "%";
+    }
+
+    public function statusCount($str)
+    {
+    	return Certificate::where('staff_id', auth()->user()->id)->where('status', $str)->count();
+    }
+
 }
