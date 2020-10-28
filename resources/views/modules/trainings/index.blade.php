@@ -6,7 +6,86 @@
     </h1><br>
     <a href="{{ route('trainings.create') }}" class="btn btn-sm btn-primary">Add Training</a>
     @if (auth()->user()->details->where('completed', 1)->where('categorised', 1)->count() > 0)
-        <a href="{{ route('print.trainings', auth()->user()->staff_no) }}" class="btn btn-info btn-sm">Print Trainings</a>
+        <a href="{{ route('print.trainings', auth()->user()->staff_no) }}" class="btn btn-info btn-sm">Print Trainings</a><br><br>
+
+        <div class="dt-card">
+            <div class="dt-card__body">
+                <form action="{{ route('printables') }}" method="POST">
+                    @csrf
+                    <h3 class="mb-5">Print Options</h3>
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="course_id">Category</label>
+                                <select name="course_id" class="form-control" id="">
+                                    <option value="">Select Category</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="resident">Resident</label>
+                                <select name="resident" class="form-control" id="">
+                                    <option value="">Select Resident</option>
+                                    <option value="local">Local</option>
+                                    <option value="international">International</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="sponsor">Training Sponsor</label>
+                                <select name="sponsor" class="form-control" id="">
+                                    <option value="">Select Sponsor</option>
+                                    <option value="ncdmb">NCDMB</option>
+                                    <option value="previous-employer">Previous Employer</option>
+                                    <option value="personal">Personal</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="status">Status</label>
+                                <select name="status" class="form-control" id="">
+                                    <option value="">Select Status</option>
+                                    <option value="archived">Archived</option>
+                                    <option value="pending">Unarchived</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mb-5 mt-5">
+                            <h3 class="mb-5">Display Columns</h3>
+                            <div class="row">
+                                @foreach ($columns as $key => $column)
+                                    <div class="col-2">
+                                        <div class="form-group form-row">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" value="{{ $key }}" id="columns{{ $key }}" name="columns[]">
+                                                <label class="custom-control-label" for="columns{{ $key }}">{{ $column }}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-sm btn-info float-right">Print Trainings</button>
+                            </div>
+                        </div>
+                    </div>      
+                </form>
+            </div>
+        </div>
+
     @endif
 </div>
 @stop

@@ -29,6 +29,8 @@ Route::prefix('dashboard')->group(function() {
 	Route::post('populate/major', 'AjaxFormController@major')->name('populate.existing');
 	Route::post('dependencies', 'AjaxFormController@reveal')->name('get.dependencies');
 	Route::post('get/staffs', 'AjaxFormController@loadStaffs')->name('get.staffs');
+	Route::get('print/staff/training/options', 'ExportController@trainingOptions')->name('print.options');
+	Route::post('print/staff/trainings', 'ExportController@printables')->name('printables');
 	Route::get('print/staffs/{staff}/trainings', 'ExportController@trainings')->name('print.trainings');
 
 	// L & D Officer Controller Section
