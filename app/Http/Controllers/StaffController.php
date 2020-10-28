@@ -98,6 +98,12 @@ class StaffController extends Controller
         return view('pages.users.edit', compact('staff', 'locations', 'grades', 'departments', 'roles', 'currentDepartments', 'currentRoles'));
     }
 
+    public function revokeRole(User $staff, Role $role)
+    {
+        $staff->roles()->detach($role);
+        return back()->with('status', 'Staff role has been detached successfully.');
+    }
+
     /**
      * Update the specified resource in storage.
      *

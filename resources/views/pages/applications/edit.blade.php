@@ -8,6 +8,12 @@
 @stop
 @section('content')
 
+@if (session('status'))
+	<div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+@endif
+
 <!-- Card -->
 <div class="dt-card">
     <!-- Card Body -->
@@ -112,6 +118,7 @@
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" value="{{ $department->id }}" id="department{{ $department->id }}" name="departments[]" {{ in_array($department->id, $currentDepartments) ? ' checked' : '' }}>
                                         <label class="custom-control-label" for="department{{ $department->id }}">{{ $department->name }}</label>
+                                        <a href="{{ route('revoke.module.access', [$application->code, $department->id]) }}"> - revoke</a>
                                     </div>
                                 </div>
                             </div>

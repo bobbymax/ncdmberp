@@ -64,6 +64,10 @@ Route::prefix('dashboard')->group(function() {
 
 
 Route::prefix('admin')->group(function() {
+	Route::get('revoke/applications/{application}/departments/{department}/access', 'AdminController@revokeAppAccess')->name('revoke.module.access');
+	Route::get('departments/{department}/pages/{page}/detach', 'AdminController@detachDepartment')->name('detach.department');
+	Route::get('access/roles/{role}/pages/{page}/revoke', 'AdminController@revokeRole')->name('revoke.role.access');
+	Route::get('revoke/staffs/{staff}/roles/{role}/access', 'StaffController@revokeRole')->name('roles.revoked');
 	Route::resource('staffs', 'StaffController');
 	Route::resource('apiResources', 'ApiResourceController');
 	Route::resource('{module}/pages', 'PageController');

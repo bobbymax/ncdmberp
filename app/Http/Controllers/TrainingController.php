@@ -46,24 +46,10 @@ class TrainingController extends Controller
     public function index()
     {
         $trainings = auth()->user()->trainings;
-        $columns = $this->displayColumns();
+        $columns = (new Training)->displayColumns();
         $categories = Course::latest()->get();
         // User::find(1)->notify(new TrainingCategorised);
         return view('modules.trainings.index', compact('trainings', 'columns', 'categories'));
-    }
-
-    public function displayColumns()
-    {
-        return [
-            'title' => 'Training Title',
-            'name' => 'Category',
-            'start_date' => 'Start Date',
-            'end_date' => 'End Date',
-            'location' => 'Location',
-            'resident' => 'Resident',
-            'sponsor' => 'Sponsor',
-            'vendor' => 'Provider'
-        ];
     }
 
     /**

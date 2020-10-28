@@ -41,12 +41,14 @@
                             <td>{{ $certificate->parent->lifecycle() }}</td>
                             <td>{{ $certificate->parent->duration() }}</td>
                             <td>{{ $certificate->parent->location }}</td>
-                            <td><img src="{{ asset('images/certificates/'. $certificate->path) }}" alt=""></td>
+                            <td><img width="400" src="{{ asset('images/certificates/'. $certificate->path) }}" alt=""></td>
                             <td>
                             	@if ($certificate->status === "pending" && $certificate->confirmed != 1)
                             		<div class="btn-group float-right" role="group" aria-label="Basic example">
 	                                	<a href="{{ route('confirm.staff.training', [$certificate->id, 'denied']) }}" class="btn btn-sm btn-danger"><i class="icon icon-settings icon-lg mr-2"></i> Deny</a>
-	                                    <a href="{{ route('confirm.staff.training', [$certificate->id, 'approved']) }}" class="btn btn-sm btn-success"><i class="icon icon-eye icon-lg mr-2"></i> Confirm</a>
+                                        @if ($certificate->path !== null)
+                                            <a href="{{ route('confirm.staff.training', [$certificate->id, 'approved']) }}" class="btn btn-sm btn-success"><i class="icon icon-eye icon-lg mr-2"></i> Confirm</a>
+                                        @endif
 	                                </div>
 	                            @else
 	                            	<span class="badge badge-{{ $certificate->status === "approved" ? 'success' : 'danger' }}">{{ ucwords($certificate->status) }}</span>

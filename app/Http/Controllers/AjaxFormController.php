@@ -12,6 +12,7 @@ use App\TrainingDetail;
 use App\Course;
 use App\Major;
 use App\User;
+use Image;
 
 class AjaxFormController extends Controller
 {
@@ -82,8 +83,16 @@ class AjaxFormController extends Controller
     public function addAttendeeToClass(Request $request, TrainingDetail $detail)
     {
 
-        $certificate = new Certificate;
-        $certificate->createOrUpdateFormat(auth()->user(), $detail, $request->certificate);
+        $certificate = Certificate::where('staff_id', auth()->user()->id)->where('training_detail_id', $detail->id)->first();
+
+        if (! $certificate) {
+            $certificate = new Certificate;   
+        }
+
+        $image = isset($request->certificate) ? $request->certificate : null;
+
+        
+        $certificate->createOrUpdateFormat(auth()->user(), $detail, $image);
         $detail->addAttendee(auth()->user());
 
         if ($detail->categorised == 1) {

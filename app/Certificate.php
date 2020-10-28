@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Image;
+
 class Certificate extends Model
 {
     public function staff()
@@ -25,10 +27,19 @@ class Certificate extends Model
     {
     	$this->staff_id = $user->id;
     	$this->training_detail_id = $training->id;
-    	$this->path = $value;
-
+    	$this->path = $value !== null ? $this->addCertificate($value) : null;
     	$this->save();
 
     	return $this;
+    }
+
+    public function addCertificate($data)
+    {
+        $file = $data;
+        $filename = time() . $file->getClientOriginalName();
+        $location = public_path('images/certificates/' . $filename);
+        Image::make($file)->fit(1280, 820)->save($location);
+
+        return $filename;
     }
 }

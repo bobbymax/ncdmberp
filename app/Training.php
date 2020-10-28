@@ -42,6 +42,20 @@ class Training extends Model
         return compact('sponsors', 'types');
     }
 
+    public function displayColumns()
+    {
+        return [
+            'title' => 'Training Title',
+            'name' => 'Category',
+            'start_date' => 'Start Date',
+            'end_date' => 'End Date',
+            'location' => 'Location',
+            'resident' => 'Resident',
+            'sponsor' => 'Sponsor',
+            'vendor' => 'Provider'
+        ];
+    }
+
     public function details()
     {
         return $this->hasMany(TrainingDetail::class);

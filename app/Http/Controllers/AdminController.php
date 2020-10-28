@@ -11,6 +11,10 @@ use App\TrainingDetail;
 use App\Notifications\TrainingCategorised;
 use App\User;
 use App\Staff;
+use App\Department;
+use App\Application;
+use App\Page;
+use App\Role;
 
 class AdminController extends Controller
 {
@@ -65,6 +69,25 @@ class AdminController extends Controller
     {
         $majors = Major::latest()->get();
         return view('modules.trainings.hr-edit', compact('training', 'detail', 'majors'));
+    }
+
+    public function revokeAppAccess(Application $application, Department $department)
+    {
+        $application->departments()->detach($department);
+
+        return back()->with('status', 'Permissions revoked for this department successfully.');
+    }
+
+    public function detachDepartment(Department $department, Page $page)
+    {
+        $page->departments()->detach($department);
+        return back()->with('status', 'Page permissions for this department has been revoked successfully.');
+    }
+
+    public function revokeRole(Role $role, Page $page)
+    {
+        $page->roles()->detach($role);
+        return back()->with('status', 'Page permissions for this role have been revoked successfully.');
     }
 
     public function schedule(TrainingDetail $detail)

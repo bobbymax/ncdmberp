@@ -160,10 +160,15 @@ class TrainingDetail extends Model
 
             if (isset($data['certificate'])) {
                 $this->certificate_file = $data['certificate'];
-                $this->addCertificate($this->certificate_file);
+                // $this->addCertificate($this->certificate_file);
             }
 
-            $certificate = new Certificate;
+            $certificate = Certificate::where('staff_id', auth()->user()->id)->where('training_detail_id', $this->id)->first();
+
+            if (! $certificate) {
+                $certificate = new Certificate;   
+            }
+            
             $certificate->createOrUpdateFormat(auth()->user(), $this, $this->certificate_file);
         }
 

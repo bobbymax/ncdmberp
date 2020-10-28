@@ -8,6 +8,12 @@
 @stop
 @section('content')
 
+@if (session('status'))
+	<div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+@endif
+
 <!-- Card -->
 <div class="dt-card">
     <!-- Card Body -->
@@ -133,6 +139,7 @@
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" value="{{ $role->id }}" id="role{{ $role->id }}" name="roles[]" {{ in_array($role->id, $currentRoles) ? ' checked' : '' }}>
                                         <label class="custom-control-label" for="role{{ $role->id }}">{{ $role->name }}</label>
+                                        <a href="{{ route('revoke.role.access', [$role->id, $page->label]) }}"> - detach</a>
                                     </div>
                                 </div>
                             </div>
@@ -154,6 +161,7 @@
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" value="{{ $department->id }}" id="department{{ $department->id }}" name="departments[]" {{ in_array($department->id, $currentDepartments) ? ' checked' : '' }}>
                                         <label class="custom-control-label" for="department{{ $department->id }}">{{ $department->name }}</label>
+                                        <a href="{{ route('detach.department', [$department->id, $page->label]) }}"> - revoke</a>
                                     </div>
                                 </div>
                             </div>

@@ -21,36 +21,40 @@
 	<div class="mt-15"><h4 style="text-align: center;" class="page-title strong">training records update</h4></div>
 
 	<div class="mt-50">
-		<p>Name <span class="ml-150">:</span> <span class="ml-30 page-title underline"><strong>{{ $staff->name }}</strong></span></p>
-		<p>Directorate/Division <span class="ml-40">:</span> <span class="ml-30 page-title underline"><strong>{{ $staff->hierarchy() }}</strong></span></p>
-		<p>Grade Level <span class="ml-100">:</span> <span class="ml-30 page-title underline"><strong>{{ $staff->grade_level }}</strong></span></p>
-		<p>Date Joined NCDMB <span class="ml-30">:</span> <span class="ml-30 underline"><strong>{{ $staff->date_joined->format('d F, Y') }}</strong></span></p>
+		<p>Name <span class="ml-150">:</span> <span class="ml-30 page-title underline"><strong>{{ auth()->user()->name }}</strong></span></p>
+		<p>Directorate/Division <span class="ml-40">:</span> <span class="ml-30 page-title underline"><strong>{{ auth()->user()->hierarchy() }}</strong></span></p>
+		<p>Grade Level <span class="ml-100">:</span> <span class="ml-30 page-title underline"><strong>{{ auth()->user()->grade_level }}</strong></span></p>
+		<p>Date Joined NCDMB <span class="ml-30">:</span> <span class="ml-30 underline"><strong>{{ auth()->user()->date_joined->format('d F, Y') }}</strong></span></p>
 	</div>
 
 	<p class="mt-50" style="font-style: italic;">Details of all relevant Workshops, Seminars, Overseas and Local Trainings attended to date.</p>
 
 	<table class="mt-30 full-width">
-		<thead style="background-color: #ecd107;">
+		<thead style="background-color: #27ae60;">
 			<tr>
 				<th>S/No.</th>
-				<th>Title of Programme</th>
-				<th>Provider/Organizer</th>
-				<th>Sponser</th>
-				<th>Date</th>
+				@foreach ($loadables['displays'] as $column)
+					<th>{{ $column }}</th>
+				@endforeach
 			</tr>
 		</thead>
 		<tbody>
 			@php
 				$count = 1;
 			@endphp
-			@foreach ($staff->printable() as $detail)
-				<tr>
-					<td>{{ $count++ }}.</td>
-					<td>{{ $detail->training->title }}</td>
-					<td>{{ $detail->vendor }}</td>
-					<td>{{ strtoupper($detail->sponsor )}}</td>
-					<td>{{ $detail->lifecycle() }}</td>
-				</tr>
+			@foreach ($loadables['data'] as $key => $detail)
+				@if ($detail->staff_id == auth()->user()->id)
+					<tr>
+						<td>{{ $count++ }}.</td>
+						@foreach ($loadables['columns'] as $column)
+							@if ($column === 'start_date' || $column === 'end_date')
+								<td>{{ dateParser($detail->$column) }}</td>
+							@else
+								<td>{{ $detail->$column }}</td>
+							@endif
+						@endforeach
+					</tr>
+				@endif
 			@endforeach
 		</tbody>
 	</table>

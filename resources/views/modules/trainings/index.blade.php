@@ -1,12 +1,17 @@
 @extends('layouts.master')
 @section('page-header')
+@if (session('errors'))
+    <div class="alert alert-danger">
+        {{ session('errors') }}
+    </div>
+@endif
 <div class="dt-page__header">
     <h1 class="dt-page__title">
        Trainings 
     </h1><br>
     <a href="{{ route('trainings.create') }}" class="btn btn-sm btn-primary">Add Training</a>
     @if (auth()->user()->details->where('completed', 1)->where('categorised', 1)->count() > 0)
-        <a href="{{ route('print.trainings', auth()->user()->staff_no) }}" class="btn btn-info btn-sm">Print Trainings</a><br><br>
+        <a href="{{ route('print.trainings', auth()->user()->staff_no) }}" class="btn btn-secondary btn-sm">Default Print Trainings</a><br><br>
 
         <div class="dt-card">
             <div class="dt-card__body">
@@ -66,7 +71,7 @@
                                     <div class="col-2">
                                         <div class="form-group form-row">
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" value="{{ $key }}" id="columns{{ $key }}" name="columns[]">
+                                                <input type="checkbox" class="custom-control-input" value="{{ $key }}" id="columns{{ $key }}" name="columns[]" checked>
                                                 <label class="custom-control-label" for="columns{{ $key }}">{{ $column }}</label>
                                             </div>
                                         </div>

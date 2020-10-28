@@ -204,11 +204,11 @@
 				</div>
 			</div>
 
-			<h3 class="mb-5 mt-5">Staffs</h3>
+			<h3 class="mb-5 mt-5">Personnel</h3>
 			<div class="row mt-3">
 				<div class="col-12">
 					<div class="form-group">
-						<input type="text" name="staffs" class="@error('staffs') is-invalid @enderror" placeholder="Select staffs to nominate" value="{{ old('staffs') }}" id="staffs">
+						<input type="text" name="staffs" class="@error('staffs') is-invalid @enderror" placeholder="Select personnels to nominate" value="{{ old('staffs') }}" id="staffs">
 
 						@error('staffs')
                             <span class="invalid-feedback" role="alert">

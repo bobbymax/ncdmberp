@@ -18,6 +18,8 @@ class ExportController extends Controller
     protected $values = [];
     protected $queryable = [];
     protected $displays = [];
+    protected $match_columns = [];
+    protected $query;
 
     public function __construct()
     {
@@ -47,47 +49,57 @@ class ExportController extends Controller
         $this->queryable = $this->availableKeys($request->except(['_token', 'columns']));
 
         if (! empty($this->queryable)) {
-            $query = DB::table('training_details');
+            $this->query = DB::table('training_details');
 
-            if (isset($request->columns)) {
-                $query->select($request->columns);
-            }
+            // if (isset($request->columns)) {
+            //     $this->query->select($request->columns);
+            // }
 
-            $query->join('trainings', 'trainings.id', '=', 'training_details.training_id');
+            $this->query->join('trainings', 'trainings.id', '=', 'training_details.training_id');
+            $this->query->join('courses', 'courses.id', '=', 'training_details.course_id');
+            $this->query->join('certificates', 'certificates.training_detail_id', '=', 'training_details.id');
 
             foreach ($this->queryable as $key => $value) {
-                if ($key === "course_id") {
-                    $query->join('courses', 'courses.id', '=', 'training_details.course_id');
-                }
-                $query->where($key, $value);
+                $this->query->where($key, $value);
             }
 
-            $results = $query->get();   
+            $results = $this->query->get();
+
+            if ($results === null) {
+                return back()->with('errors', 'There are no trainings to be printed');
+            }   
+        } else {
+            return back()->with('errors', 'There are no parameters chosen');
         }
 
-        // $pdf = PDF::loadView('modules.trainings.print-options', compact('results'));
+        $displays = (new Training)->displayColumns();
 
-        dd($results[0]);
+        if (isset($request->columns)) {
+            foreach ($request->columns as $value) {
+                if (in_array($value, array_keys($displays))) {
+                    $this->match_columns[] = $displays[$value];
+                }   
+            }   
+        }
+
+        $columns = $request->columns;
+        $displays = $this->match_columns;
+        $data = $results->toArray();
+
+        if (empty($data)) {
+            return back()->with('errors', 'There are no trainings to be printed');            
+        }
+
+        $staff_trainings = auth()->user()->trainings->first()->toArray();
+
+        $loadables = compact('columns', 'displays', 'data', 'staff_trainings');
+
+        $pdf = PDF::loadView('modules.trainings.print-options', compact('loadables'));
+        return $pdf->download(auth()->user()->name . ' Trainings.pdf');
+
+        // dd($loadables);
         // dd($request->except('_token'));
 
-    }
-
-    protected function addQuery($param)
-    {
-        $syntax = TrainingDetail::class;
-        $count = 1;
-        foreach ($param as $key => $value) {
-            if ($count == 1) {
-                $syntax .= sprintf("::where('%s', '%s')", $key, $value);   
-            } else {
-                $syntax .= sprintf("->where('%s', '%s')", $key, $value);
-            }
-            $count++;
-        }
-
-        return $syntax .= '->get();';
-
-        // return str_replace('"', '', $syntax);
     }
 
     public function availableKeys(array $data)
