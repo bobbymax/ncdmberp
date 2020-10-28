@@ -37,6 +37,7 @@ class Training extends Model
         $types = [
             'local' => 'Local',
             'international' => 'International',
+            'virtual' => 'Virtual',
         ];
 
         return compact('sponsors', 'types');
