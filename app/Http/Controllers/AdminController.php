@@ -9,6 +9,8 @@ use App\Major;
 use App\Certificate;
 use App\TrainingDetail;
 use App\Notifications\TrainingCategorised;
+use App\Mail\ConfirmedTraining as Confirmed;
+use Illuminate\Support\Facades\Mail;
 use App\User;
 use App\Staff;
 use App\Department;
@@ -20,7 +22,7 @@ class AdminController extends Controller
 {
 	use HasFunction;
 
-    protected $message;
+    protected $message, $detail;
 
     public function __construct()
     {
@@ -61,6 +63,10 @@ class AdminController extends Controller
         } else {
             $this->message = 'Training for this staff has been confirmed';
         }
+
+        $this->detail = $certificate->parent;
+
+        Mail::to($certificate->staff->email)->queue(new Confirmed($this->detail, $action));
 
         return back()->with('status', $this->message);
     }

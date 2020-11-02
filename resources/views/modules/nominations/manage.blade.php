@@ -32,27 +32,28 @@
                         <th>Action</th>
 	                </tr>
                 </thead>
-                <tbody>
-                    
+                <tbody>        
                     @foreach ($details as $detail)
-                        @php
-                            $deptIDs = $detail->nominations->pluck('department_id')->toArray();
-                        @endphp
-                        @if (in_array(auth()->user()->deptID(), $deptIDs))
-                            <tr class="gradeX">
-                                <td>{{ $detail->training->title }}</td>
-                                <td>{{ $detail->course->name }}</td>
-                                <td>{{ $detail->lifecycle() }}</td>
-                                <td>{{ $detail->vendor }}</td>
-                                <td>{{ $detail->location }}</td>
-                                <th>{{ $detail->nominations->count() }}</th>
-                                <td>
-                                    <div class="btn-group float-right" role="group" aria-label="Basic example">
-                                        <a href="{{ route('nominations.show', $detail->id) }}" class="btn btn-sm btn-success"><i class="icon icon-eye icon-lg"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endif
+                        @can('nominations', $detail)
+                            @php
+                                $deptIDs = $detail->nominations->pluck('department_id')->toArray();
+                            @endphp
+                            @if (in_array(auth()->user()->deptID(), $deptIDs))
+                                <tr class="gradeX">
+                                    <td>{{ $detail->training->title }}</td>
+                                    <td>{{ $detail->course->name }}</td>
+                                    <td>{{ $detail->lifecycle() }}</td>
+                                    <td>{{ $detail->vendor }}</td>
+                                    <td>{{ $detail->location }}</td>
+                                    <th>{{ $detail->nominations->count() }}</th>
+                                    <td>
+                                        <div class="btn-group float-right" role="group" aria-label="Basic example">
+                                            <a href="{{ route('nominations.show', $detail->id) }}" class="btn btn-sm btn-success"><i class="icon icon-eye icon-lg"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endif
+                        @endcan
                     @endforeach
                 </tbody>
                 <tfoot>

@@ -7,8 +7,10 @@ use App\Location;
 use App\Grade;
 use App\Department;
 use App\Role;
+use App\Mail\StaffRegistered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 use Image;
 
@@ -65,7 +67,11 @@ class StaffController extends Controller
         ]);
 
         $staff = new User;
-        $staff->createOrUpdateFormat($request->all());
+
+        if ($staff->createOrUpdateFormat($request->all())) {
+            Mail::to($staff->email)->queue(new StaffRegistered($staff));
+        }
+        
         return redirect()->route('staffs.index')->with('status', 'Staff record has been created successfully.');
     }
 

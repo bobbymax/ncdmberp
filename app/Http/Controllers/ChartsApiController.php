@@ -23,9 +23,7 @@ class ChartsApiController extends Controller
     	$local = auth()->user()->trainingsCounter('local');
     	$international = auth()->user()->trainingsCounter('international');
 
-    	$labels = ['Verified - ' . $this->percentageStatus("approved"), 'Pending - ' . $this->percentageStatus("pending"), 'Local - ' . auth()->user()->percentageTraining('local'), 'International - ' . auth()->user()->percentageTraining('international')];
-
-    	// $data = compact('confirmed', 'pending', 'denied');
+    	$labels = [" " . $confirmed .' - Verified - ' . $this->percentageStatus("approved"), " " . $pending . ' - Pending - ' . $this->percentageStatus("pending"), " " . $local . ' - Local - ' . auth()->user()->percentageTraining('local'), " " . $international . ' - International - ' . auth()->user()->percentageTraining('international')];
 
     	$data = [$confirmed, $pending, $local, $international];
 
