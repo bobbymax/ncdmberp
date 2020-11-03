@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 
-use ConsoleTVs\Charts\Registrar as Charts;
+// use ConsoleTVs\Charts\Registrar as Charts;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,12 +23,8 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(Charts $charts)
+    public function boot()
     {
-
-        $charts->register([
-            \App\Charts\TrainingChart::class
-        ]);
 
         view()->composer('partials.aside', function($view) {
             $view->with('modules', \App\Module::where('active', 1)->latest()->get());
@@ -45,5 +41,6 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('pages.index', function($view) {
             $view->with('nominations', \App\Nomination::where('state', 'approved')->latest()->get());
         });
+
     }
 }

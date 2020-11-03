@@ -33,6 +33,11 @@ class TrainingDetailPolicy
         //
     }
 
+    public function manage(User $user, TrainingDetail $trainingDetail)
+    {
+        return $user->isAdministrator() || $user->hasRole('hr-officer');
+    }
+
     /**
      * Determine whether the user can view the training.
      *
