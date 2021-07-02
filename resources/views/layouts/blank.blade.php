@@ -31,6 +31,12 @@
   <link rel="stylesheet" href="/assets/css/style.min.css">
   <!-- /load styles -->
 
+    <style>
+        .dt-login__bg-section:before {
+            background-color: rgba(2, 138, 14, 0.9) !important;
+        }
+    </style>
+
 </head>
 <body class="dt-sidebar--fixed">
 

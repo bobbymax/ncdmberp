@@ -70,7 +70,7 @@
 
             <!-- Form Group -->
             <div class="form-group">
-                <button type="submit" class="btn btn-primary text-uppercase">{{ __('Login') }}</button>
+                <button type="submit" class="btn btn-success text-uppercase">{{ __('Login') }}</button>
             </div>
             <!-- /form group -->
 
@@ -84,7 +84,7 @@
     <!-- Login Content Footer -->
     @if (Route::has('password.request'))
 		<div class="dt-login__content-footer">
-        	<a href="{{ route('password.request') }}">Can’t access your account?</a>
+        	<a href="{{ route('password.request') }}" class="text-success">Can’t access your account?</a>
     	</div>
     @endif
     <!-- /login content footer -->
