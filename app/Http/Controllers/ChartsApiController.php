@@ -20,12 +20,22 @@ class ChartsApiController extends Controller
     {
     	$confirmed = $this->statusCount("approved");
     	$pending = $this->statusCount("pending");
-    	$local = auth()->user()->trainingsCounter('local');
-    	$international = auth()->user()->trainingsCounter('international');
 
-    	$labels = [" " . $confirmed .' - Verified - ' . $this->percentageStatus("approved"), " " . $pending . ' - Pending - ' . $this->percentageStatus("pending"), " " . $local . ' - Local - ' . auth()->user()->percentageTraining('local'), " " . $international . ' - International - ' . auth()->user()->percentageTraining('international')];
+    	$labels = [" " . $confirmed .' - Verified - ' . $this->percentageStatus("approved"), " " . $pending . ' - Pending - ' . $this->percentageStatus("pending")];
 
-    	$data = [$confirmed, $pending, $local, $international];
+    	$data = [$confirmed, $pending];
+
+        return response()->json(compact('data', 'labels'));
+    }
+
+    public function pertTripStat()
+    {
+        $local = auth()->user()->trainingsCounter('local');
+        $international = auth()->user()->trainingsCounter('international');
+
+        $labels = [" " . $local . ' - Local - ' . auth()->user()->percentageTraining('local'), " " . $international . ' - International - ' . auth()->user()->percentageTraining('international')];
+
+        $data = [$local, $international];
 
         return response()->json(compact('data', 'labels'));
     }

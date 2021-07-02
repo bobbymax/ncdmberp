@@ -2,7 +2,7 @@
 @section('content')
 	<div class="row">
 		<!-- Grid Item -->
-        <div class="col-xl-6">
+        <div class="col-md-4 col-xl-3">
 
             <!-- Card -->
             <div class="dt-card">
@@ -19,7 +19,7 @@
                     </div>
                     <!-- /card heading -->
 
-                    
+
 
                 </div>
                 <!-- /card header -->
@@ -31,13 +31,65 @@
 
                         <!-- Grid Item -->
                         <div class="col-12">
-                        	{{--  
+                        	{{--
                             <div class="d-flex align-items-center">
                                 <span class="f-16 text-success mr-1">84%</span>
                                 <i class="icon icon-pointer-up text-success"></i>
                             </div>
                             --}}
                             <canvas id="myChart"></canvas>
+                        </div>
+                        <!-- /grid item -->
+
+                    </div>
+                    <!-- /grid -->
+
+                </div>
+                <!-- /card body -->
+
+            </div>
+            <!-- /card -->
+
+        </div>
+        <!-- /grid item -->
+
+        <!-- Grid Item -->
+        <div class="col-md-4 col-xl-3">
+
+            <!-- Card -->
+            <div class="dt-card">
+
+                <!-- Card Header -->
+                <div class="dt-card__header px-5 pt-4 mb-4">
+
+                    <!-- Card Heading -->
+                    <div class="dt-card__heading">
+                        <h3 class="dt-card__title f-12 font-weight-400">
+                            <i class="icon icon-bitcoin text-primary mr-1 icon-2x"></i>
+                            <span class="align-middle">Ratio of International to Local Trainings</span>
+                        </h3>
+                    </div>
+                    <!-- /card heading -->
+
+
+
+                </div>
+                <!-- /card header -->
+
+                <!-- Card Body -->
+                <div class="dt-card__body px-5 pb-4">
+                    <!-- Grid -->
+                    <div class="row no-gutters">
+
+                        <!-- Grid Item -->
+                        <div class="col-12">
+                            {{--
+                            <div class="d-flex align-items-center">
+                                <span class="f-16 text-success mr-1">84%</span>
+                                <i class="icon icon-pointer-up text-success"></i>
+                            </div>
+                            --}}
+                            <canvas id="myChart2"></canvas>
                         </div>
                         <!-- /grid item -->
 
@@ -61,6 +113,41 @@
 
     <script>
         var ctx = document.getElementById("myChart");
+        var ctx2 = document.getElementById("myChart2");
+        var myChart2 = new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [],
+                    backgroundColor : [
+                        'rgba(155, 89, 182,1.0)',
+                        'rgba(52, 73, 94,1.0)'
+                    ]
+                }],
+
+                labels: []
+            }
+        });
+
+        var updateChart2 = function() {
+            $.ajax({
+                url: "{{ route('api.chart.trip') }}",
+                type: 'GET',
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    myChart2.data.datasets[0].data = data.data;
+                    myChart2.data.labels = data.labels;
+                    myChart2.update();
+                },
+                error: function(data){
+                    console.log(data);
+                }
+            });
+        }
+
         var myChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
@@ -98,8 +185,10 @@
         }
 
         updateChart();
+        updateChart2();
         setInterval(() => {
             updateChart();
+            updateChart2();
         }, 10000);
     </script>
 

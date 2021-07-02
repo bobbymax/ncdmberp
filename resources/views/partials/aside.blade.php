@@ -1,4 +1,4 @@
-<aside id="main-sidebar" class="dt-sidebar">
+<aside id="main-sidebar" class="dt-sidebar" style="background-color: #faf662">
     <div class="dt-sidebar__container">
 
         <!-- Sidebar Navigation -->
@@ -17,7 +17,7 @@
                     <span class="dt-side-nav__text">Dashboard</span> </a>
             </li>
 
-            {{--  
+            {{--
 
             @if (auth()->user()->isAdministrator())
                 <!-- Menu Header -->
@@ -29,7 +29,7 @@
                     <!-- Menu Item -->
                     <li class="dt-side-nav__item">
                         <a href="{{ route('fetch.resource', $resource->label) }}" class="dt-side-nav__link" title="{{ $resource->name }}">
-                            <i class="icon icon-listall icon-fw icon-lg"></i> 
+                            <i class="icon icon-listall icon-fw icon-lg"></i>
                             <span class="dt-side-nav__text">{{ $resource->name }}</span>
                         </a>
                     </li>
@@ -43,11 +43,13 @@
                 @can('accessible', $module->application)
 
                     @if ($module->hasChildren()->count() > 0)
+                        @can('accessible', $module)
                         <!-- Menu Header -->
                         <li class="dt-side-nav__item dt-side-nav__header">
                             <span class="dt-side-nav__text">{{ $module->name }}</span>
                         </li>
                         <!-- /menu header -->
+                        @endcan
 
                         @foreach ($module->pages as $page)
                             @can('accessible', $page)

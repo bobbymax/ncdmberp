@@ -22,6 +22,7 @@ Route::prefix('dashboard')->group(function() {
 	Route::resource('tasks', 'TaskController');
 	Route::resource('milestones', 'MilestoneController');
 	Route::get('chart', 'ChartsApiController@index')->name('api.chart');
+	Route::get('chartAce', 'ChartsApiController@pertTripStat')->name('api.chart.trip');
 
 	// Trainings
 	Route::get('autocomplete', 'AjaxFormController@autocomplete')->name('autocomplete');
@@ -50,7 +51,7 @@ Route::prefix('dashboard')->group(function() {
 	Route::get('manage/nominations', 'NominationController@manage')->name('manage.nominations');
 	Route::get('hr/nominations', 'NominationController@nominations')->name('hr.nominations');
 	Route::resource('nominations', 'NominationController');
-	
+
 	// Staff Controller Section
 	Route::post('training/details/{detail}/attendee', 'AjaxFormController@addAttendeeToClass')->name('add.attendee');
 	Route::resource('trainings/{training}/details', 'TrainingDetailController');
