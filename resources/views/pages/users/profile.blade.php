@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
 <style>
-    
+
     .profile__banner {
         background-color: rgba(70, 156, 64, 0.9) !important;
     }
@@ -30,7 +30,7 @@
                 <!-- /info -->
             </div>
             <!-- /avatar wrapper -->
-            {{--  
+            {{--
             <div class="ml-sm-auto">
                 <!-- List -->
                 <ul class="dt-list dt-list-bordered dt-list-col-4">
@@ -175,6 +175,12 @@
                                 <a class="nav-link" data-toggle="tab" href="#tab-pane2"
                                    role="tab"
                                    aria-controls="tab-pane2"
+                                   aria-selected="true">Pending Trainings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tab-pane3"
+                                   role="tab"
+                                   aria-controls="tab-pane3"
                                    aria-selected="true">Trainings</a>
                             </li>
                         </ul>
@@ -283,142 +289,58 @@
 
                             <!-- Tab panel -->
                             <div id="tab-pane3" class="tab-pane">
-
-                                <!-- List -->
-                                <ul class="dt-list dt-list-col-4">
-                                    <!-- List Item -->
-                                    <li class="dt-list__item">
-                                        <!-- Media -->
-                                        <div class="media">
-
-                                            <i class="icon icon-company icon-4x mr-5 align-self-center text-yellow"></i>
-
-                                            <!-- Media Body -->
-                                            <div class="media-body">
-                                                <span class="d-block text-light-gray f-12 mb-1">Works at</span>
-                                                <p class="h5 mb-0">G-axon Tech Pvt. Ltd.</p>
-                                            </div>
-                                            <!-- /media body -->
-
-                                        </div>
-                                        <!-- /media -->
-                                    </li>
-                                    <!-- /list item -->
-
-                                    <!-- List Item -->
-                                    <li class="dt-list__item">
-                                        <!-- Media -->
-                                        <div class="media">
-
-                                            <i class="icon icon-birthday-new icon-4x mr-5 align-self-center text-yellow"></i>
-
-                                            <!-- Media Body -->
-                                            <div class="media-body">
-                                                <span class="d-block text-light-gray f-12 mb-1">Birthday</span>
-                                                <p class="h5 mb-0">Oct 25, 1984</p>
-                                            </div>
-                                            <!-- /media body -->
-
-                                        </div>
-                                        <!-- /media -->
-                                    </li>
-                                    <!-- /list item -->
-
-                                    <!-- List Item -->
-                                    <li class="dt-list__item">
-                                        <!-- Media -->
-                                        <div class="media">
-
-                                            <i class="icon icon-graduation icon-4x mr-5 align-self-center text-yellow"></i>
-
-                                            <!-- Media Body -->
-                                            <div class="media-body">
-                                                <span class="d-block text-light-gray f-12 mb-1">Went to</span>
-                                                <p class="h5 mb-0">Oxford University</p>
-                                            </div>
-                                            <!-- /media body -->
-
-                                        </div>
-                                        <!-- /media -->
-                                    </li>
-                                    <!-- /list item -->
-
-                                    <!-- List Item -->
-                                    <li class="dt-list__item">
-                                        <!-- Media -->
-                                        <div class="media">
-
-                                            <i class="icon icon-home icon-4x mr-5 align-self-center text-yellow"></i>
-
-                                            <!-- Media Body -->
-                                            <div class="media-body">
-                                                <span class="d-block text-light-gray f-12 mb-1">Lives in London</span>
-                                                <p class="h5 mb-0">From Switzerland</p>
-                                            </div>
-                                            <!-- /media body -->
-
-                                        </div>
-                                        <!-- /media -->
-                                    </li>
-                                    <!-- /list item -->
-
-                                    <!-- List Item -->
-                                    <li class="dt-list__item">
-                                        <!-- Media -->
-                                        <div class="media">
-
-                                            <i class="icon icon-family icon-4x mr-5 align-self-center text-yellow"></i>
-
-                                            <!-- Media Body -->
-                                            <div class="media-body">
-                                                <span class="d-block text-light-gray f-12 mb-1">4 Family Members</span>
-
-                                                <!-- Project Team -->
-                                                <ul class="dt-list dt-team-list dt-team-list-sm">
-                                                    <li>
-                                                        <!-- Avatar -->
-                                                        <a class="dt-avatar size-25"
-                                                           href="javascript:void(0)">
-                                                            <img src="https://via.placeholder.com/150x150"
-                                                                 alt="Steve Smith"> </a>
-                                                        <!-- /avatar -->
-                                                    </li>
-                                                    <li>
-                                                        <!-- Avatar -->
-                                                        <a class="dt-avatar size-25"
-                                                           href="javascript:void(0)">
-                                                            <img src="https://via.placeholder.com/150x150"
-                                                                 alt="Alex Dolgove"> </a>
-                                                        <!-- /avatar -->
-                                                    </li>
-                                                    <li>
-                                                        <!-- Avatar -->
-                                                        <a class="dt-avatar size-25"
-                                                           href="javascript:void(0)">
-                                                            <img src="https://via.placeholder.com/150x150"
-                                                                 alt="Reece Jacklin"> </a>
-                                                        <!-- /avatar -->
-                                                    </li>
-                                                    <li>
-                                                        <!-- Avatar -->
-                                                        <a class="dt-avatar size-25"
-                                                           href="javascript:void(0)">
-                                                            <img src="https://via.placeholder.com/150x150"
-                                                                 alt="Selena"> </a>
-                                                        <!-- /avatar -->
-                                                    </li>
-                                                </ul>
-                                                <!-- /project team -->
-
-                                            </div>
-                                            <!-- /media body -->
-
-                                        </div>
-                                        <!-- /media -->
-                                    </li>
-                                    <!-- /list item -->
-                                </ul>
-                                <!-- /list -->
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>S/No.</th>
+                                            <th>Title</th>
+                                            <th>Duration</th>
+                                            <th>Type</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @php
+                                            $count = 1;
+                                        @endphp
+                                        @foreach($staff->certificates as $certificate)
+                                                <tr>
+                                                    <td>{{ $count++ }}</td>
+                                                    <td>
+                                                        @can('manage', $certificate->parent)
+                                                            @if ($certificate->parent->status === "nomination")
+                                                                {{ $certificate->parent->training->title }}
+                                                            @else
+                                                                <a href="{{ route('verify.staffs', $certificate->parent->id) }}">
+                                                                    {{ $certificate->parent->training->title }}
+                                                                </a>
+                                                            @endif
+                                                        @else
+                                                            {{ $certificate->parent->training->title }}
+                                                        @endcan
+                                                    </td>
+                                                    <td>{{ $certificate->parent->lifecycle() }}</td>
+                                                    <td>{{ ucwords($certificate->parent->status) }}</td>
+                                                    <td>
+                                                        @if ($certificate->parent->status === "nomination")
+                                                            <span class="badge badge-info badge-sm">Not Attended</span>
+                                                        @else
+                                                            @can('manage', $certificate->parent)
+                                                                <div class="btn-group float-right" role="group" aria-label="Basic example">
+                                                                    <a href="{{ route('confirm.staff.training', [$certificate->id, 'denied']) }}" class="btn btn-sm btn-danger"><i class="icon icon-settings icon-lg mr-2"></i> Deny</a>
+                                                                    @if ($certificate->path !== null)
+                                                                        <a href="{{ route('confirm.staff.training', [$certificate->id, 'approved']) }}" class="btn btn-sm btn-success"><i class="icon icon-eye icon-lg mr-2"></i> Confirm</a>
+                                                                    @endif
+                                                                </div>
+                                                            @else
+                                                                <span class="badge badge-warning badge-sm" style="color: white;">{{ ucwords($certificate->parent->status) }}</span>
+                                                            @endcan
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
 
                             </div>
                             <!-- /tab panel -->
