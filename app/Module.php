@@ -10,7 +10,7 @@ class Module extends Model
 	{
 		return 'code';
 	}
-	
+
     public function application()
     {
     	return $this->belongsTo(Application::class);

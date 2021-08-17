@@ -201,7 +201,7 @@ class User extends Authenticatable
             if (isset($data['departments'])) {
                 foreach ($data['departments'] as $department) {
                     if ($department !== 0) {
-                        $d = Department::find($department); 
+                        $d = Department::find($department);
                         if ($d && !in_array($d->id, $this->currentDepartments())) {
                             $this->joinDepartment($d);
                         }

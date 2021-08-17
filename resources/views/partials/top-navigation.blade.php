@@ -160,7 +160,7 @@
                             <!-- /dropdown option -->
                         </li>
 
-                        
+
                     </ul>
                     <!-- /header menu -->
 
@@ -175,7 +175,7 @@
                                 alt="{{ auth()->user()->name }}">
                                 <span class="dt-avatar-info d-none d-sm-block">
                                 <span class="dt-avatar-name">{{ auth()->user()->name }}</span>
-                                </span> 
+                                </span>
                             </a>
                             <!-- /dropdown link -->
 
@@ -192,6 +192,11 @@
                                 <a class="dropdown-item" href="{{ route('staffs.show', auth()->user()->staff_no) }}"> <i
                                         class="icon icon-user icon-fw mr-2 mr-sm-1"></i>Account
                                 </a>
+
+                                <a class="dropdown-item" href="{{ route('show.profile') }}"> <i
+                                        class="icon icon-user icon-fw mr-2 mr-sm-1"></i>Update Profile
+                                </a>
+
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();"> <i
                                         class="icon icon-editors icon-fw mr-2 mr-sm-1"></i>{{ __('Logout') }}

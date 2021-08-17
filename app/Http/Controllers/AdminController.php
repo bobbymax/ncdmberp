@@ -143,10 +143,10 @@ class AdminController extends Controller
     }
 
     /**
-     * 
+     *
      * Displays uncategorized trainings for staff
      * L & D Officer Confirms category of training
-     * 
+     *
      * @param  Training $training [description]
      * @return [type]             [description]
      */
@@ -175,6 +175,7 @@ class AdminController extends Controller
     public function retract(User $staff, TrainingDetail $training)
     {
         $nomination = $this->verifyRecord($staff->staff_no, $training->id);
+
         if (! $nomination) {
             return back()->with('status', 'The Nomination record does not exist');
         }

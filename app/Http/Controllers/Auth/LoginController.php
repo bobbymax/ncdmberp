@@ -28,7 +28,7 @@ class LoginController extends Controller
      * @var string
      */
     // protected $redirectTo = RouteServiceProvider::HOME;
-    // 
+    //
     // protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
@@ -41,10 +41,10 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function username()
-    {
-        return 'staff_no';
-    }
+//    public function username()
+//    {
+//        return 'staff_no';
+//    }
 
     public function redirectTo()
     {

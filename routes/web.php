@@ -11,6 +11,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('imports', 'ImportController@show')->name('show.import.form');
+Route::post('imports', 'ImportController@store')->name('store.import.data');
 
 
 Route::prefix('dashboard')->group(function() {
@@ -69,6 +71,7 @@ Route::prefix('admin')->group(function() {
 	Route::get('departments/{department}/pages/{page}/detach', 'AdminController@detachDepartment')->name('detach.department');
 	Route::get('access/roles/{role}/pages/{page}/revoke', 'AdminController@revokeRole')->name('revoke.role.access');
 	Route::get('revoke/staffs/{staff}/roles/{role}/access', 'StaffController@revokeRole')->name('roles.revoked');
+	Route::get('update/profile', 'StaffController@profileShow')->name('show.profile');
 	Route::resource('staffs', 'StaffController');
 	Route::resource('apiResources', 'ApiResourceController');
 	Route::resource('{module}/pages', 'PageController');

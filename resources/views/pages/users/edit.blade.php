@@ -2,7 +2,7 @@
 @section('page-header')
 <div class="dt-page__header">
     <h1 class="dt-page__title">
-       Update Staff Record 
+       Update Staff Record
     </h1><br>
 </div>
 @stop
@@ -21,7 +21,7 @@
 		<form role="form" action="{{ route('staffs.update', $staff->staff_no) }}" method="POST" enctype="multipart/form-data">
 			@csrf
 			@method('PATCH')
-			
+
 			<div class="row">
 				<div class="col-4">
 					<div class="form-group">
@@ -52,7 +52,7 @@
 				<div class="col-4">
 					<div class="form-group">
 						<label for="staff_no">Staff Number</label>
-						<input type="number" name="staff_no" class="form-control @error('staff_no') is-invalid @enderror" placeholder="Enter Staff Number" value="{{ $staff->staff_no ?? old('staff_no') }}" id="staff_no" {{ $staff->staff_no !== null ? ' readonly' : '' }}>
+						<input type="text" name="staff_no" class="form-control @error('staff_no') is-invalid @enderror" placeholder="Enter Staff Number" value="{{ $staff->staff_no ?? old('staff_no') }}" id="staff_no">
 
 						@error('staff_no')
                             <span class="invalid-feedback" role="alert">
@@ -193,7 +193,7 @@
 
 			<div class="row mt-5">
 				<div class="col-12 mb-5">
-					
+
 					<div class="row">
 						<div class="col-4">
 							<label for="directorate">Directorate</label>
@@ -210,8 +210,8 @@
 						<div class="col-4">
 							<label for="division">Division</label>
 							<select class="form-control" name="departments[]" id="division">
-								<option value="">Select Division</option>
-								<option value="0">None</option>
+								<option value="" disabled>Select Division</option>
+								<option value="0" selected>None</option>
 								@foreach ($departments as $division)
 									@if ($division->vocabulary->label === "division")
 										<option value="{{ $division->id }}" {{ in_array($division->id, $currentDepartments) ? ' selected' : '' }}>{{ $division->name }}</option>
@@ -239,9 +239,9 @@
 			<div class="row mb-5 mt-5">
 				<div class="col-12">
 					<h3 class="mb-5">Roles</h3>
-					
+
 					<div class="row">
-						
+
 						@foreach ($roles as $role)
                             <div class="col-2">
                             	<div class="form-group form-row">

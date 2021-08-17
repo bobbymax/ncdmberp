@@ -35,10 +35,10 @@
 
             <!-- Form Group -->
             <div class="form-group">
-                <label class="sr-only" for="staff_no-1">{{ __('Staff Number') }}</label>
-                <input type="text" class="form-control @error('staff_no') is-invalid @enderror" id="staff_no-1" name="staff_no" aria-describedby="staff_no-1" placeholder="Enter Staff Number" value="{{ old('staff_no') }}">
+                <label class="sr-only" for="staff_no-1">{{ __('Email Address') }}</label>
+                <input type="text" class="form-control @error('email') is-invalid @enderror" id="staff_no-1" name="email" aria-describedby="staff_no-1" placeholder="Enter Email Address" value="{{ old('email') }}">
 
-                @error('staff_no')
+                @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

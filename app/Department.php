@@ -7,6 +7,8 @@ use Illuminate\Support\Str;
 
 class Department extends Model
 {
+    protected $guarded = [''];
+
     public function vocabulary()
     {
     	return $this->belongsTo(Vocabulary::class);

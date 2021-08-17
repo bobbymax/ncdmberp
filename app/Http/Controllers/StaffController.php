@@ -16,6 +16,9 @@ use Image;
 
 class StaffController extends Controller
 {
+
+    protected $route;
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -58,7 +61,7 @@ class StaffController extends Controller
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'email' => 'required|email|string|max:255|unique:users',
-            'staff_no' => 'required|integer',
+            'staff_no' => 'required',
             'grade_level' => 'required|string|max:255',
             'location' => 'required|string|max:255',
             'mobile' => 'required|unique:users',
@@ -71,7 +74,7 @@ class StaffController extends Controller
         if ($staff->createOrUpdateFormat($request->all())) {
             Mail::to($staff->email)->queue(new StaffRegistered($staff));
         }
-        
+
         return redirect()->route('staffs.index')->with('status', 'Staff record has been created successfully.');
     }
 
@@ -84,6 +87,16 @@ class StaffController extends Controller
     public function show(User $staff)
     {
         return view('pages.users.profile', compact('staff'));
+    }
+
+    public function profileShow()
+    {
+        $locations = Location::latest()->get();
+        $grades = Grade::latest()->get();
+        $departments = Department::latest()->get();
+        $roles = Role::latest()->get();
+        $currentDepartments = auth()->user()->currentDepartments();
+        return view('pages.users.update', compact('locations', 'grades', 'departments', 'roles', 'currentDepartments'));
     }
 
     /**
@@ -115,25 +128,30 @@ class StaffController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, User $staff)
     {
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'email' => 'required|email|string|max:255',
-            'staff_no' => 'required|integer',
+            'staff_no' => 'required',
             'grade_level' => 'required|string|max:255',
             'location' => 'required|string|max:255',
             'mobile' => 'required',
-            'office_no' => 'required|integer',
             'type' => 'required|string|max:255',
             'status' => 'required|string|max:255',
         ]);
 
         $staff->createOrUpdateFormat($request->all(), false);
 
-        return redirect()->route('staffs.index')->with('status', 'Staff record has been updated successfully.');
+        if (isset($request->fromUpdateProfile) && $request->fromUpdateProfile === "present") {
+            $this->route = "user.dashboard";
+        } else {
+            $this->route = "staff.index";
+        }
+
+        return redirect()->route($this->route)->with('status', 'Staff record has been updated successfully.');
     }
 
     /**

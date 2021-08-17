@@ -57,8 +57,9 @@
                                     <!-- Menu Item -->
                                     <li class="dt-side-nav__item">
                                         <a href="{{ route($page->route) }}" class="dt-side-nav__link" title="{{ $page->name }}">
-                                            <i class="icon {{ $page->icon }} icon-fw icon-lg"></i> <span
-                                                class="dt-side-nav__text">{{ $page->name }}</span> </a>
+                                            <i class="icon {{ $page->icon }} icon-fw icon-lg"></i>
+                                            <span class="dt-side-nav__text">{{ $page->name }}</span>
+                                        </a>
                                     </li>
                                 @endif
                             @endcan
