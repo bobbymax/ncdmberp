@@ -68,6 +68,15 @@
                 @endcan
             @endforeach
 
+            <li class="dt-side-nav__item">
+                @if (auth()->user()->canChangePassword)
+                    <a href="{{ route('password.changer') }}" class="dt-side-nav__link" title="{{ __('Change Password') }}">
+                        <i class="icon icon-settings icon-fw icon-lg"></i>
+                        <span class="dt-side-nav__text">Change Password</span>
+                    </a>
+                @endif
+            </li>
+
         </ul>
         <!-- /sidebar navigation -->
 

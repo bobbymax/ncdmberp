@@ -55,6 +55,8 @@ Route::prefix('dashboard')->group(function() {
 	Route::resource('nominations', 'NominationController');
 
 	// Staff Controller Section
+	Route::get('change/password', 'StaffController@changePassword')->name('password.changer');
+	Route::patch('change/password', 'StaffController@patchPasswordChange')->name('user.password.change');
 	Route::post('training/details/{detail}/attendee', 'AjaxFormController@addAttendeeToClass')->name('add.attendee');
 	Route::resource('trainings/{training}/details', 'TrainingDetailController');
 	Route::resource('trainings', 'TrainingController');
@@ -72,6 +74,8 @@ Route::prefix('admin')->group(function() {
 	Route::get('access/roles/{role}/pages/{page}/revoke', 'AdminController@revokeRole')->name('revoke.role.access');
 	Route::get('revoke/staffs/{staff}/roles/{role}/access', 'StaffController@revokeRole')->name('roles.revoked');
 	Route::get('update/profile', 'StaffController@profileShow')->name('show.profile');
+	Route::patch('reset/staffs/{staff}/password', 'StaffController@resetPassword')->name('reset.staff.password');
+	Route::get('activate/{staff}/password/change', 'StaffController@activatePassword')->name('activate.password.change');
 	Route::resource('staffs', 'StaffController');
 	Route::resource('apiResources', 'ApiResourceController');
 	Route::resource('{module}/pages', 'PageController');

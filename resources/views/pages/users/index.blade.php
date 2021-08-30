@@ -51,6 +51,7 @@
 									<div class="btn-group float-right" role="group" aria-label="Basic example">
                                         <a href="{{ route('staffs.show', $staff->staff_no) }}" class="btn btn-sm btn-success"><i class="icon icon-eye icon-lg"></i></a>
 	                                    <a href="{{ route('staffs.edit', $staff->staff_no) }}" class="btn btn-sm btn-info"><i class="icon icon-settings icon-lg"></i></a>
+                                        <a href="{{ route('activate.password.change', $staff->staff_no) }}" class="btn btn-sm btn-primary"><i class="icon icon-link"></i></a>
                                         @if ($staff->id !== auth()->user()->id) 
                                             <button type="submit" class="btn btn-sm btn-danger"><i class="icon icon-trash icon-lg"></i></button>
                                         @endif

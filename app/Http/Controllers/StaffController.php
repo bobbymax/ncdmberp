@@ -49,6 +49,11 @@ class StaffController extends Controller
         return view('pages.users.create', compact('locations', 'grades', 'departments', 'roles'));
     }
 
+    public function changePassword()
+    {
+        return view('pages.users.password-change');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -97,6 +102,39 @@ class StaffController extends Controller
         $roles = Role::latest()->get();
         $currentDepartments = auth()->user()->currentDepartments();
         return view('pages.users.update', compact('locations', 'grades', 'departments', 'roles', 'currentDepartments'));
+    }
+
+    public function activatePassword(User $staff)
+    {
+        $staff->canChangePassword = true;
+        $staff->save();
+
+        return back()->with('status', 'Staff can now reset password');
+    }
+
+    public function resetPassword(Request $request, User $staff) 
+    {
+        $this->validate($request, [
+            'password' => 'required|string|min:8|confirmed'
+        ]);
+
+        $staff->password = Hash::make($request->password);
+        $staff->save();
+
+        return redirect()->route('staffs.index')->with('status', 'Staff password has been updated successfully!!');
+    }
+
+    public function patchPasswordChange(Request $request)
+    {
+        $this->validate($request, [
+            'password' => 'required|string|min:8|confirmed'
+        ]);
+
+        auth()->user()->password = Hash::make($request->password);
+        auth()->user()->canChangePassword = false;
+        auth()->user()->save();
+
+        return redirect()->route('user.dashboard')->with('status', 'Password updated successfully!!');
     }
 
     /**
