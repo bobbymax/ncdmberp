@@ -197,11 +197,9 @@
                                         class="icon icon-user icon-fw mr-2 mr-sm-1"></i>Update Profile
                                 </a>
 
-                                @if(auth()->user()->canChangePassword)
-                                    <a class="dropdown-item" href="#"> <i
-                                            class="icon icon-phone-o icon-fw mr-2 mr-sm-1"></i>Reset Password
-                                    </a>
-                                @endif
+                                <a class="dropdown-item" href="#"> <i
+                                        class="icon icon-phone-o icon-fw mr-2 mr-sm-1"></i>Reset Password
+                                </a>
 
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();"> <i

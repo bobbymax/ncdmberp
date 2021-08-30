@@ -186,7 +186,7 @@ class StaffController extends Controller
         if (isset($request->fromUpdateProfile) && $request->fromUpdateProfile === "present") {
             $this->route = "user.dashboard";
         } else {
-            $this->route = "staff.index";
+            $this->route = "staffs.index";
         }
 
         return redirect()->route($this->route)->with('status', 'Staff record has been updated successfully.');
