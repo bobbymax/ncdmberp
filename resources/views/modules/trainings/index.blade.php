@@ -90,7 +90,6 @@
                 </form>
             </div>
         </div>
-
     @endif
 </div>
 @stop
