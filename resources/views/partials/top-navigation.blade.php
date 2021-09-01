@@ -197,7 +197,7 @@
                                         class="icon icon-user icon-fw mr-2 mr-sm-1"></i>Update Profile
                                 </a>
 
-                                <a class="dropdown-item" href="#"> <i
+                                <a class="dropdown-item" href="{{ route('password.changer') }}"> <i
                                         class="icon icon-phone-o icon-fw mr-2 mr-sm-1"></i>Reset Password
                                 </a>
 
