@@ -19,7 +19,7 @@ class ExportController extends Controller
     protected $queryable = [];
     protected $displays = [];
     protected $match_columns = [];
-    protected $query;
+    protected $query, $results;
 
     public function __construct()
     {
@@ -51,10 +51,6 @@ class ExportController extends Controller
         if (! empty($this->queryable)) {
             $this->query = DB::table('training_details');
 
-            // if (isset($request->columns)) {
-            //     $this->query->select($request->columns);
-            // }
-
             $this->query->join('trainings', 'trainings.id', '=', 'training_details.training_id');
             $this->query->join('courses', 'courses.id', '=', 'training_details.course_id');
             $this->query->join('certificates', 'certificates.training_detail_id', '=', 'training_details.id');
@@ -63,11 +59,11 @@ class ExportController extends Controller
                 $this->query->where($key, $value);
             }
 
-            $results = $this->query->get();
+            $this->results = $this->query->get();
 
-            if ($results === null) {
+            if ($this->results === null) {
                 return back()->with('errors', 'There are no trainings to be printed');
-            }   
+            }
         } else {
             return back()->with('errors', 'There are no parameters chosen');
         }
@@ -78,16 +74,16 @@ class ExportController extends Controller
             foreach ($request->columns as $value) {
                 if (in_array($value, array_keys($displays))) {
                     $this->match_columns[] = $displays[$value];
-                }   
-            }   
+                }
+            }
         }
 
         $columns = $request->columns;
         $displays = $this->match_columns;
-        $data = $results->toArray();
+        $data = $this->results->toArray();
 
         if (empty($data)) {
-            return back()->with('errors', 'There are no trainings to be printed');            
+            return back()->with('errors', 'There are no trainings to be printed');
         }
 
         $staff_trainings = auth()->user()->trainings->first()->toArray();
@@ -97,9 +93,6 @@ class ExportController extends Controller
         $pdf = PDF::loadView('modules.trainings.print-options', compact('loadables'));
         return $pdf->download(auth()->user()->name . ' Trainings.pdf');
 
-        // dd($loadables);
-        // dd($request->except('_token'));
-
     }
 
     public function availableKeys(array $data)
@@ -107,7 +100,7 @@ class ExportController extends Controller
         foreach ($data as $key => $value) {
             if ($value !== null) {
                 $this->populated[] = $key;
-                $this->values[] = $value;  
+                $this->values[] = $value;
             }
         }
 
