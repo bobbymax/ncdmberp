@@ -27,7 +27,7 @@
 		<p>Date Joined NCDMB <span class="ml-30">:</span> <span class="ml-30 underline"><strong>{{ auth()->user()->date_joined->format('d F, Y') }}</strong></span></p>
 	</div>
 
-	<p class="mt-50" style="font-style: italic;">Details of all relevant Workshops, Seminars, Overseas and Local Trainings attended to date.</p>
+	<p class="mt-50" style="font-style: italic;">Specified Details Request of Staff Trainings attended.</p>
 
 	<table class="mt-30 full-width">
 		<thead style="background-color: #27ae60;">
