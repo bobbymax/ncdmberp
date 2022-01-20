@@ -36,7 +36,7 @@
             <!-- Form Group -->
             <div class="form-group">
                 <label class="sr-only" for="staff_no-1">{{ __('Staff Number') }}</label>
-                <input type="text" class="form-control @error('staff_no') is-invalid @enderror" id="staff_no-1" name="staff_no" aria-describedby="staff_no-1" placeholder="Enter Email Address" value="{{ old('staff_no') }}">
+                <input type="text" class="form-control @error('staff_no') is-invalid @enderror" id="staff_no-1" name="staff_no" aria-describedby="staff_no-1" placeholder="Enter Staff Number" value="{{ old('staff_no') }}">
 
                 @error('staff_no')
                     <span class="invalid-feedback" role="alert">
