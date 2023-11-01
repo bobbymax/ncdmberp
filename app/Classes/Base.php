@@ -17,10 +17,10 @@ class Base
 		return ['browse', 'read', 'edit', 'add', 'delete', 'manage', 'approve'];
 	}
 
-	public static function generatePermissions($name, $table=null, $type)
+	public static function generatePermissions($name, $type, $table=null)
     {
     	$actions = self::getActions();
-        
+
     	foreach ($actions as $action) {
     		$app_name = $action . " " . $name;
             $label = Str::slug($app_name);
@@ -77,7 +77,7 @@ class Base
             }
         }
 
-        return self::generatePermissions($name, $table, $type);
+        return self::generatePermissions($name, $type, $table);
 
     }
 

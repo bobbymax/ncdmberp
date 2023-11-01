@@ -67,7 +67,7 @@ class ModuleController extends Controller
         }
 
         if ($application->modules()->save($module)) {
-            $permissions = Base::generatePermissions($module->code, 'modules', 'module');
+            $permissions = Base::generatePermissions($module->code, 'module', 'modules');
         }
 
         return redirect()->route('applications.show', $application->code)->with('status', 'Module created successfully.');

@@ -79,7 +79,7 @@ class ApplicationController extends Controller
                 }
             }
 
-            $permissions = Base::generatePermissions($application->code, 'applications', 'application');
+            $permissions = Base::generatePermissions($application->code, 'application', 'applications');
         }
 
         return redirect()->route('applications.index')->with('status', 'Application created successfully.');

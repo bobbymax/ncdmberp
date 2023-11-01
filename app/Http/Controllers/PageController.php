@@ -88,7 +88,7 @@ class PageController extends Controller
                 }
             }
 
-            $permissions = Base::generatePermissions($page->label, 'pages', 'page');
+            $permissions = Base::generatePermissions($page->label, 'page', 'pages');
         }
 
         return redirect()->route('modules.show', [$module->application->code, $module->code])->with('status', 'Page created successfully.');
